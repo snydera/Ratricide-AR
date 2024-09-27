@@ -161,7 +161,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.unity.template.ar_mobile
-    Standalone: com.unity.template.ar-mobile
+    Standalone: com.MRMR-Productions.Ratricide-AR
     iPhone: com.MRMR-Productions.Ratricide-AR
   buildNumber:
     Bratwurst: 0
@@ -923,7 +923,7 @@ PlayerSettings:
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 1
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: dff053a0-ea95-42d3-a4ab-cf558a91ba09
   framebufferDepthMemorylessMode: 0
