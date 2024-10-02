@@ -81,7 +81,7 @@ public class ARPlayer : MonoBehaviour
     #endregion
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Movement();
     }
@@ -94,13 +94,13 @@ public class ARPlayer : MonoBehaviour
         {
             //transform.Rotate(new Vector3(0, -turnSpeed, 0));
             //RotateCamera(-turnSpeed * Time.deltaTime);
-            RotateParent(-turnSpeed * Time.deltaTime);
+            RotateParent(-turnSpeed * Time.fixedDeltaTime);
         }
         else if (lookRight)
         {
             //transform.Rotate(new Vector3(0, turnSpeed, 0));
             //RotateCamera(turnSpeed * Time.deltaTime);
-            RotateParent(turnSpeed * Time.deltaTime);
+            RotateParent(turnSpeed * Time.fixedDeltaTime);
         }
 
 
@@ -121,7 +121,7 @@ public class ARPlayer : MonoBehaviour
         }
         else if (moveRight)
         {
-
+            MovePlayerPosition(rotationY + 90f);
         }
 
     }
@@ -132,7 +132,7 @@ public class ARPlayer : MonoBehaviour
         Vector3 movementDirection = new Vector3(Mathf.Sin(rotationY * Mathf.Deg2Rad), 0f, Mathf.Cos(rotationY * Mathf.Deg2Rad));
 
         // Move the player in the calculated direction
-        transform.Translate(movementDirection * moveSpeed * Time.deltaTime);
+        transform.Translate(movementDirection * moveSpeed * Time.fixedDeltaTime);
     }
 
     private void RotateCamera(float rotationAmount)
