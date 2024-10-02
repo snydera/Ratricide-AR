@@ -8,58 +8,81 @@ public class ARPlayer : MonoBehaviour
     bool lookRight;
     bool moveForward;
     bool moveBackward;
+    bool moveLeft;
+    bool moveRight;
 
     public float moveSpeed = 5f;
     public float turnSpeed = 5f;
 
     public Transform gyroCamera;
 
-
-    public void PointerDownLeft()
+    #region Pointer Event bools
+    public void PointerDownLookLeft()
     {
         lookLeft = true;
     }
 
-    public void PointerUpLeft()
+    public void PointerUpLookLeft()
     {
         lookLeft = false;
     }
 
-    public void PointerDownRight()
+    public void PointerDownLookRight()
     {
         lookRight = true;
     }
 
-    public void PointerUpRight()
+    public void PointerUpLookRight()
     {
         lookRight = false;
     }
 
-    public void PointerDownForward()
+    public void PointerDownMoveForward()
     {
         moveForward = true;
 
     }
 
-    public void PointerUpForward()
+    public void PointerUpMoveForward()
     {
         moveForward = false;
     }
 
-    public void PointerDownBackward()
+    public void PointerDownMoveBackward()
     {
         moveBackward = true;
     }
 
-    public void PointerUpBackward()
+    public void PointerUpMoveBackward()
     {
         moveBackward = false;
     }
 
+    public void PointerDownMoveLeft()
+    {
+        moveLeft = true;
+    }
+
+    public void PointerUpMoveLeft()
+    {
+        moveLeft = false;
+    }
+
+    public void PointerDownMoveRight()
+    {
+        moveRight = true;
+    }
+
+    public void PointerUpMoveRigh()
+    {
+        moveRight = false;
+    }
+
+    #endregion
+
     // Update is called once per frame
     void Update()
     {
-
         Movement();
     }
 
@@ -90,6 +113,15 @@ public class ARPlayer : MonoBehaviour
         {
             //transform.position -= transform.forward * Time.deltaTime * moveSpeed;
             MovePlayerPosition(rotationY + 180f);
+        }
+        
+        if (moveLeft)
+        {
+            MovePlayerPosition(rotationY - 90f);
+        }
+        else if (moveRight)
+        {
+
         }
 
     }
