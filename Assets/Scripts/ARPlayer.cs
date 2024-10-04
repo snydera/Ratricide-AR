@@ -47,6 +47,10 @@ public class ARPlayer : MonoBehaviourPunCallbacks
     {
         if (PV.IsMine)
         {
+            // Randomize the spawn position to avoid overlapping
+            float randomOffset = Random.Range(-2f, 2f); // Adjust the range as needed
+            transform.position += new Vector3(randomOffset, 0, randomOffset);
+
             EquipItem(0);
         }
         else
