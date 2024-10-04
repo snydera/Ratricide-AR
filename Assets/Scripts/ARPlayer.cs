@@ -3,6 +3,8 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class ARPlayer : MonoBehaviourPunCallbacks
@@ -15,12 +17,15 @@ public class ARPlayer : MonoBehaviourPunCallbacks
     bool moveRight;
 
     bool grounded;
+    Vector3 moveAmount;
+    Vector3 smoothMoveVelocity;
 
     public float moveSpeed = 5f;
     public float turnSpeed = 5f;
 
     public Transform gyroCamera;
 
+    TrackedPoseDriver trackedPoseDriver;
     Rigidbody rb;
     PhotonView PV;
 
@@ -34,6 +39,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        trackedPoseDriver = transform.Find("Camera Offset").Find("Main Camera").GetComponent<TrackedPoseDriver>();
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
     }
@@ -51,12 +57,22 @@ public class ARPlayer : MonoBehaviourPunCallbacks
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (!PV.IsMine)
             return;
 
         Movement();
+    }
+
+    private void FixedUpdate()
+    {
+        if (!PV.IsMine)
+            return;
+
+        // https://www.youtube.com/watch?v=AZRdwnBJcfg&list=PLhsVv9Uw1WzjI8fEBjBQpTyXNZ6Yp1ZLw&index=7&ab_channel=RugbugRedfern at 13:50
+        // will need to swtich AR Player Movement to fixed Update and Time.fixedDeltaTime
+        rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
     }
 
     #region Pointer Event bools
@@ -127,6 +143,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
 
     public void Movement()
     {
+        /*
         float rotationY = gyroCamera.rotation.eulerAngles.y;
 
         if (lookLeft)
@@ -161,8 +178,30 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         else if (moveRight)
         {
             MovePlayerPosition(rotationY + 90f);
+        }*/
+
+        Vector3 moveDir = Vector3.zero;
+
+        if (moveForward)
+        {
+            moveDir += Vector3.forward;
+        }
+        if (moveBackward)
+        {
+            moveDir += Vector3.back;
+        }
+        if (moveLeft)
+        {
+            moveDir += Vector3.left;
+        }
+        if (moveRight)
+        {
+            moveDir += Vector3.right;
         }
 
+        // Calculate movement direction and smooth it out over time
+        moveDir = moveDir.normalized;
+        moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * moveSpeed, ref smoothMoveVelocity, 0.1f);  // 0.1f for smoothTime
     }
 
     private void MovePlayerPosition(float rotationY)
