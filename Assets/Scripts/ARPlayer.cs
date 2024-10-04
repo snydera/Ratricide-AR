@@ -1,8 +1,11 @@
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class ARPlayer : MonoBehaviour
+public class ARPlayer : MonoBehaviourPunCallbacks
 {
     bool lookLeft;
     bool lookRight;
@@ -11,10 +14,50 @@ public class ARPlayer : MonoBehaviour
     bool moveLeft;
     bool moveRight;
 
+    bool grounded;
+
     public float moveSpeed = 5f;
     public float turnSpeed = 5f;
 
     public Transform gyroCamera;
+
+    Rigidbody rb;
+    PhotonView PV;
+
+    [SerializeField] Item[] items;
+
+    bool item0Equipped = false;
+    
+    [SerializeField]
+    int itemIndex = 1;
+    int previousItemIndex = -1;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        PV = GetComponent<PhotonView>();
+    }
+    private void Start()
+    {
+        if (PV.IsMine)
+        {
+            EquipItem(0);
+        }
+        else
+        {
+            Destroy(GetComponentInChildren<Camera>().gameObject);
+            Destroy(rb);
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (!PV.IsMine)
+            return;
+
+        Movement();
+    }
 
     #region Pointer Event bools
     public void PointerDownLookLeft()
@@ -80,11 +123,7 @@ public class ARPlayer : MonoBehaviour
 
     #endregion
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        Movement();
-    }
+    #region Movement and Rotation
 
     public void Movement()
     {
@@ -145,5 +184,71 @@ public class ARPlayer : MonoBehaviour
     {
         // Rotate the parent object around the Y-axis
         this.transform.Rotate(0f, rotationAmount, 0f);
+    }
+
+    #endregion
+
+
+    void EquipItem(int _index)
+    {
+        if (_index == previousItemIndex)
+            return;
+
+        itemIndex = _index;
+
+        items[itemIndex].itemGameObject.SetActive(true);
+
+        if (previousItemIndex != -1)
+        {
+            items[previousItemIndex].itemGameObject.SetActive(false);
+        }
+
+        previousItemIndex = itemIndex;
+
+        /*
+        if (item0Equipped)
+        {
+            items[1].itemGameObject.SetActive(true);
+            items[0].itemGameObject.SetActive(false);
+            item0Equipped = false;
+            itemIndex = 1;
+        }
+        else
+        {
+            items[0].itemGameObject.SetActive(true);
+            items[1].itemGameObject.SetActive(false);
+            item0Equipped = true;
+            itemIndex = 0;
+        }*/
+
+        if (PV.IsMine) //!!!
+        {
+            Hashtable hash = new Hashtable();
+            hash.Add("itemIndex", itemIndex);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
+    }
+
+    public void WeaponButtonPressed()
+    {
+        // Toggle the itemIndex between 0 and 1
+        itemIndex = (itemIndex == 0) ? 1 : 0;
+
+        // Equip the item based on the updated itemIndex
+        EquipItem(itemIndex);
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        if (!PV.IsMine && targetPlayer == PV.Owner)
+        {
+            EquipItem((int)changedProps["itemIndex"]);
+        }
+    }
+
+
+    public void SetGroundedState(bool _grounded)
+    {
+        grounded = _grounded;
     }
 }
