@@ -59,7 +59,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         else
         {
             canvas.gameObject.SetActive(false);
-            Destroy(GetComponentInChildren<Camera>().gameObject);
+            Destroy(gyroCamera.gameObject);
             Destroy(rb);
         }
     }
