@@ -28,6 +28,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
     TrackedPoseDriver trackedPoseDriver;
     Rigidbody rb;
     PhotonView PV;
+    Canvas canvas;
 
     [SerializeField] Item[] items;
 
@@ -42,11 +43,13 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         trackedPoseDriver = transform.Find("Camera Offset").Find("Main Camera").GetComponent<TrackedPoseDriver>();
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
+        canvas = transform.Find("Canvas").GetComponent<Canvas>();
     }
     private void Start()
     {
         if (PV.IsMine)
         {
+            canvas.gameObject.SetActive(true);
             // Randomize the spawn position to avoid overlapping
             float randomOffset = Random.Range(-2f, 2f); // Adjust the range as needed
             transform.position += new Vector3(randomOffset, 0, randomOffset);
@@ -55,6 +58,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         }
         else
         {
+            canvas.gameObject.SetActive(false);
             Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(rb);
         }
@@ -82,63 +86,98 @@ public class ARPlayer : MonoBehaviourPunCallbacks
     #region Pointer Event bools
     public void PointerDownLookLeft()
     {
-        lookLeft = true;
+        if (PV.IsMine)
+        {
+            lookLeft = true;
+        }
     }
 
     public void PointerUpLookLeft()
     {
-        lookLeft = false;
+        if (PV.IsMine)
+        {
+            lookLeft = false;
+        }
     }
 
     public void PointerDownLookRight()
     {
-        lookRight = true;
+        if (PV.IsMine)
+        {
+            lookRight = true;
+        }
     }
 
     public void PointerUpLookRight()
     {
-        lookRight = false;
+        if (PV.IsMine)
+        {
+            lookRight = false;
+        }
     }
 
     public void PointerDownMoveForward()
     {
-        moveForward = true;
-
+        if (PV.IsMine)
+        {
+            moveForward = true;
+        }
     }
 
     public void PointerUpMoveForward()
     {
-        moveForward = false;
+        if (PV.IsMine)
+        {
+            moveForward = false;
+        }
     }
 
     public void PointerDownMoveBackward()
     {
-        moveBackward = true;
+        if (PV.IsMine)
+        {
+            moveBackward = true;
+        }
     }
 
     public void PointerUpMoveBackward()
     {
-        moveBackward = false;
+        if (PV.IsMine)
+        {
+            moveBackward = false;
+        }
     }
 
     public void PointerDownMoveLeft()
     {
-        moveLeft = true;
+        if (PV.IsMine)
+        {
+            moveLeft = true;
+        }
     }
 
     public void PointerUpMoveLeft()
     {
-        moveLeft = false;
+        if (PV.IsMine)
+        {
+            moveLeft = false;
+        }
     }
 
     public void PointerDownMoveRight()
     {
-        moveRight = true;
+        if (PV.IsMine)
+        {
+            moveRight = true;
+        }
     }
 
     public void PointerUpMoveRigh()
     {
-        moveRight = false;
+        if (PV.IsMine)
+        {
+            moveRight = false;
+        }
     }
 
     #endregion
@@ -147,9 +186,10 @@ public class ARPlayer : MonoBehaviourPunCallbacks
 
     public void Movement()
     {
-        /*
+        
         float rotationY = gyroCamera.rotation.eulerAngles.y;
-
+        
+        /*
         if (lookLeft)
         {
             //transform.Rotate(new Vector3(0, -turnSpeed, 0));
@@ -184,7 +224,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks
             MovePlayerPosition(rotationY + 90f);
         }*/
 
-        Vector3 moveDir = Vector3.zero;
+        //Vector3 moveDir = Vector3.zero;
+        Vector3 moveDir = new Vector3(0, gyroCamera.rotation.eulerAngles.y, 0);
 
         if (moveForward)
         {
