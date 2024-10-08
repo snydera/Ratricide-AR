@@ -70,7 +70,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         if (!PV.IsMine)
             return;
 
-        Movement();
+        //Movement();
     }
 
     private void FixedUpdate()
@@ -80,7 +80,9 @@ public class ARPlayer : MonoBehaviourPunCallbacks
 
         // https://www.youtube.com/watch?v=AZRdwnBJcfg&list=PLhsVv9Uw1WzjI8fEBjBQpTyXNZ6Yp1ZLw&index=7&ab_channel=RugbugRedfern at 13:50
         // will need to swtich AR Player Movement to fixed Update and Time.fixedDeltaTime
-        rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+        //rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+
+        Movement();
     }
 
     #region Pointer Event bools
@@ -189,7 +191,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         
         float rotationY = gyroCamera.rotation.eulerAngles.y;
         
-        /*
+        
         if (lookLeft)
         {
             //transform.Rotate(new Vector3(0, -turnSpeed, 0));
@@ -222,11 +224,31 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         else if (moveRight)
         {
             MovePlayerPosition(rotationY + 90f);
-        }*/
+        }
 
         //Vector3 moveDir = Vector3.zero;
-        Vector3 moveDir = new Vector3(0, gyroCamera.rotation.eulerAngles.y, 0);
+        Vector3 moveDir = new Vector3(0, gyroCamera.rotation.y, 0);
 
+        /*
+        if (moveForward)
+        {
+            moveDir += Vector3.forward;
+        }
+        if (moveBackward)
+        {
+            moveDir += Vector3.back;
+        }
+        if (moveLeft)
+        {
+            moveDir += Vector3.left;
+        }
+        if (moveRight)
+        {
+            moveDir += Vector3.right;
+        }        
+        */
+        
+        /*
         if (moveForward)
         {
             moveDir += Vector3.forward;
@@ -247,6 +269,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         // Calculate movement direction and smooth it out over time
         moveDir = moveDir.normalized;
         moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * moveSpeed, ref smoothMoveVelocity, 0.1f);  // 0.1f for smoothTime
+        */
     }
 
     private void MovePlayerPosition(float rotationY)
