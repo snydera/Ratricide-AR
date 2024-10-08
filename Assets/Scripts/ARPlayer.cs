@@ -59,7 +59,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         else
         {
             canvas.gameObject.SetActive(false);
-            Destroy(gyroCamera.gameObject);
+            //Destroy(gyroCamera.gameObject);
+            gyroCamera.GetComponent<Camera>().enabled = false;
             Destroy(rb);
         }
     }
@@ -227,26 +228,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         }
 
         //Vector3 moveDir = Vector3.zero;
-        Vector3 moveDir = new Vector3(0, gyroCamera.rotation.y, 0);
+        //Vector3 moveDir = new Vector3(0, gyroCamera.rotation.y, 0);
 
-        /*
-        if (moveForward)
-        {
-            moveDir += Vector3.forward;
-        }
-        if (moveBackward)
-        {
-            moveDir += Vector3.back;
-        }
-        if (moveLeft)
-        {
-            moveDir += Vector3.left;
-        }
-        if (moveRight)
-        {
-            moveDir += Vector3.right;
-        }        
-        */
         
         /*
         if (moveForward)
