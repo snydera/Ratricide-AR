@@ -142,9 +142,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7945560742705121754}
-  - component: {fileID: 7184281863299491168}
+  - component: {fileID: 5723350640375155475}
   m_Layer: 0
-  m_Name: Gun1Item
+  m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +166,7 @@ Transform:
   - {fileID: 7408152030051329753}
   m_Father: {fileID: 4100618323747066756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7184281863299491168
+--- !u!114 &5723350640375155475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,11 +175,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 176043017516578820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7da0c3dfff7db444a8bfc1d28390a8f, type: 3}
+  m_Script: {fileID: 11500000, guid: d5672bd9f9082444c8809bfeaee90788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 98072debcf8e9a24eb511241ccd94fa7, type: 2}
   itemGameObject: {fileID: 2331777083007617967}
+  cam: {fileID: 4278676756974592045}
 --- !u!1 &503232931609221521
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,9 +357,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1793922531292640044}
-  - component: {fileID: 4381107293216631533}
+  - component: {fileID: 1086472621973470196}
   m_Layer: 0
-  m_Name: Gun2Item
+  m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -380,7 +381,7 @@ Transform:
   - {fileID: 1460844877251493194}
   m_Father: {fileID: 4100618323747066756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4381107293216631533
+--- !u!114 &1086472621973470196
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -389,11 +390,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 829474701410273029}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7da0c3dfff7db444a8bfc1d28390a8f, type: 3}
+  m_Script: {fileID: 11500000, guid: d5672bd9f9082444c8809bfeaee90788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: d42b474bb2fef69479dd8867e348dafd, type: 2}
   itemGameObject: {fileID: 5585390453334580361}
+  cam: {fileID: 4278676756974592045}
 --- !u!1 &992869396305322660
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,7 +488,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 10.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -641,7 +643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7408152030051329753}
   m_Layer: 0
-  m_Name: Gun1
+  m_Name: Rifle Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -802,9 +804,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 1416197808488271432}
           m_TargetAssemblyTypeName: ARPlayer, Assembly-CSharp
-          m_MethodName: 
+          m_MethodName: PointerDownFireWeapon
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -818,9 +820,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 1416197808488271432}
           m_TargetAssemblyTypeName: ARPlayer, Assembly-CSharp
-          m_MethodName: 
+          m_MethodName: PointerUpFireWeapon
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -922,7 +924,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 10.45
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1088,7 +1090,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 15.2
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1222,7 +1224,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 12.3
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1313,6 +1315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4247966467034124808}
   - component: {fileID: 3564363208112591306}
+  - component: {fileID: 7466283538670667913}
   m_Layer: 0
   m_Name: Ground Check
   m_TagString: Untagged
@@ -1356,6 +1359,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7466283538670667913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3427995092024116944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787ff6951b1127748a870c6b0aa9bc21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3510331908901438306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,7 +1463,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 13.65
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1820,7 +1835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1460844877251493194}
   m_Layer: 0
-  m_Name: Gun2
+  m_Name: Pistol Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2430,7 +2445,7 @@ Transform:
   m_GameObject: {fileID: 7736581998876442643}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2564,9 +2579,8 @@ MonoBehaviour:
   turnSpeed: 5
   gyroCamera: {fileID: 3918730323737211216}
   items:
-  - {fileID: 7184281863299491168}
-  - {fileID: 4381107293216631533}
-  itemIndex: 1
+  - {fileID: 5723350640375155475}
+  - {fileID: 1086472621973470196}
 --- !u!114 &6886150267362269779
 MonoBehaviour:
   m_ObjectHideFlags: 0

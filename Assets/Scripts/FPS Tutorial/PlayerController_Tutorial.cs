@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class PlayerController_Tutorial : MonoBehaviourPunCallbacks
+public class PlayerController_Tutorial : MonoBehaviourPunCallbacks, IDamageable
 {
     [SerializeField] GameObject cameraHolder;
 
@@ -25,10 +25,17 @@ public class PlayerController_Tutorial : MonoBehaviourPunCallbacks
 
     PhotonView PV;
 
+    const float maxHealth = 100f;
+    float currentHealth = maxHealth;
+
+    PlayerManager playerManager;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
+
+        playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
     }
 
     private void Start()
@@ -86,6 +93,16 @@ public class PlayerController_Tutorial : MonoBehaviourPunCallbacks
                 EquipItem(itemIndex - 1);
             }
             
+        }
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            items[itemIndex].Use();
+        }
+
+        if (transform.position.y < 10f)
+        {
+            Die();
         }
     }
 
@@ -159,5 +176,29 @@ public class PlayerController_Tutorial : MonoBehaviourPunCallbacks
         // https://www.youtube.com/watch?v=AZRdwnBJcfg&list=PLhsVv9Uw1WzjI8fEBjBQpTyXNZ6Yp1ZLw&index=7&ab_channel=RugbugRedfern at 13:50
         // will need to swtich AR Player Movement to fixed Update and Time.fixedDeltaTime
         rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime); 
+    }
+
+    public void TakeDamage(float damage)
+    {
+        PV.RPC("RPC_TakeDamage", RpcTarget.All, damage);
+    }
+
+    [PunRPC]
+    void RPC_TakeDamage(float damage)
+    {
+        if (!PV.IsMine)
+            return;
+
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        playerManager.Die();
     }
 }

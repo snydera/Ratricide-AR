@@ -4,46 +4,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
-using UnityEngine.XR.Interaction.Toolkit;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class ARPlayer : MonoBehaviourPunCallbacks
+public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 {
-    bool lookLeft;
-    bool lookRight;
     bool moveForward;
     bool moveBackward;
     bool moveLeft;
     bool moveRight;
+    bool isFiringWeapon;
 
     bool grounded;
-    Vector3 moveAmount;
-    Vector3 smoothMoveVelocity;
 
     public float moveSpeed = 5f;
     public float turnSpeed = 5f;
 
     public Transform gyroCamera;
 
-    //TrackedPoseDriver trackedPoseDriver;
+    TrackedPoseDriver trackedPoseDriver;
     Rigidbody rb;
     PhotonView PV;
     Canvas canvas;
 
     [SerializeField] Item[] items;
 
-    bool item0Equipped = false;
-    
-    [SerializeField]
     int itemIndex = 1;
     int previousItemIndex = -1;
 
+    const float maxHealth = 100f;
+    float currentHealth = maxHealth;
+
+    PlayerManager playerManager;
+
     private void Awake()
     {
-        //trackedPoseDriver = gyroCamera.GetComponent<TrackedPoseDriver>();
+        trackedPoseDriver = gyroCamera.GetComponent<TrackedPoseDriver>();
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
         canvas = transform.Find("Canvas").GetComponent<Canvas>();
+        playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
     }
     private void Start()
     {
@@ -51,7 +50,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         {
             canvas.gameObject.SetActive(true);
             gyroCamera.GetComponent<Camera>().enabled = true;
-            //trackedPoseDriver.enabled = true;
+            trackedPoseDriver.enabled = true;
+            
             // Randomize the spawn position to avoid overlapping
             float randomOffset = Random.Range(-2f, 2f); // Adjust the range as needed
             transform.position += new Vector3(randomOffset, 0, randomOffset);
@@ -61,72 +61,37 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         else
         {
             canvas.gameObject.SetActive(false);
-            //Destroy(gyroCamera.gameObject);
             gyroCamera.GetComponent<Camera>().enabled = false;
-            //trackedPoseDriver.enabled = false;
-            TrackedPoseDriver trackedPoseDriver = transform.Find("Camera Offset/Main Camera").GetComponent<TrackedPoseDriver>();
+            
             if (trackedPoseDriver != null)
             {
-                trackedPoseDriver.enabled = false; // Disable TrackedPoseDriver to avoid overriding Photon Transform View
+                trackedPoseDriver.enabled = false;
             }
+
             Destroy(rb);
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!PV.IsMine)
-            return;
-
-        //Movement();
-    }
 
     private void FixedUpdate()
     {
         if (!PV.IsMine)
             return;
 
-        // https://www.youtube.com/watch?v=AZRdwnBJcfg&list=PLhsVv9Uw1WzjI8fEBjBQpTyXNZ6Yp1ZLw&index=7&ab_channel=RugbugRedfern at 13:50
-        // will need to swtich AR Player Movement to fixed Update and Time.fixedDeltaTime
-        //rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
-
         Movement();
+
+        if (isFiringWeapon)
+        {
+            items[itemIndex].Use();
+        }
+
+        if (transform.position.y < 10f)
+        {
+            Die();
+        }
     }
 
     #region Pointer Event bools
-    public void PointerDownLookLeft()
-    {
-        if (PV.IsMine)
-        {
-            lookLeft = true;
-        }
-    }
-
-    public void PointerUpLookLeft()
-    {
-        if (PV.IsMine)
-        {
-            lookLeft = false;
-        }
-    }
-
-    public void PointerDownLookRight()
-    {
-        if (PV.IsMine)
-        {
-            lookRight = true;
-        }
-    }
-
-    public void PointerUpLookRight()
-    {
-        if (PV.IsMine)
-        {
-            lookRight = false;
-        }
-    }
-
     public void PointerDownMoveForward()
     {
         if (PV.IsMine)
@@ -191,38 +156,36 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         }
     }
 
+    public void PointerDownFireWeapon()
+    {
+        if (PV.IsMine)
+        {
+            isFiringWeapon = true;
+        }
+    }
+
+    public void PointerUpFireWeapon()
+    {
+        if (PV.IsMine)
+        {
+            isFiringWeapon = false;
+        }
+    }
+
     #endregion
 
     #region Movement and Rotation
 
     public void Movement()
-    {
-        
+    {     
         float rotationY = gyroCamera.rotation.eulerAngles.y;
-        
-        
-        if (lookLeft)
-        {
-            //transform.Rotate(new Vector3(0, -turnSpeed, 0));
-            //RotateCamera(-turnSpeed * Time.deltaTime);
-            RotateParent(-turnSpeed * Time.fixedDeltaTime);
-        }
-        else if (lookRight)
-        {
-            //transform.Rotate(new Vector3(0, turnSpeed, 0));
-            //RotateCamera(turnSpeed * Time.deltaTime);
-            RotateParent(turnSpeed * Time.fixedDeltaTime);
-        }
-
 
         if (moveForward)
         {
-            //transform.position += transform.forward * Time.deltaTime * moveSpeed;
             MovePlayerPosition(rotationY);
         }
         else if (moveBackward)
         {
-            //transform.position -= transform.forward * Time.deltaTime * moveSpeed;
             MovePlayerPosition(rotationY + 180f);
         }
         
@@ -234,33 +197,6 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         {
             MovePlayerPosition(rotationY + 90f);
         }
-
-        //Vector3 moveDir = Vector3.zero;
-        //Vector3 moveDir = new Vector3(0, gyroCamera.rotation.y, 0);
-
-        
-        /*
-        if (moveForward)
-        {
-            moveDir += Vector3.forward;
-        }
-        if (moveBackward)
-        {
-            moveDir += Vector3.back;
-        }
-        if (moveLeft)
-        {
-            moveDir += Vector3.left;
-        }
-        if (moveRight)
-        {
-            moveDir += Vector3.right;
-        }
-
-        // Calculate movement direction and smooth it out over time
-        moveDir = moveDir.normalized;
-        moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * moveSpeed, ref smoothMoveVelocity, 0.1f);  // 0.1f for smoothTime
-        */
     }
 
     private void MovePlayerPosition(float rotationY)
@@ -270,18 +206,6 @@ public class ARPlayer : MonoBehaviourPunCallbacks
 
         // Move the player in the calculated direction
         transform.Translate(movementDirection * moveSpeed * Time.fixedDeltaTime);
-    }
-
-    private void RotateCamera(float rotationAmount)
-    {
-        // Rotate the gyro camera around the Y-axis
-        gyroCamera.Rotate(0f, rotationAmount, 0f);
-    }
-
-    private void RotateParent(float rotationAmount)
-    {
-        // Rotate the parent object around the Y-axis
-        this.transform.Rotate(0f, rotationAmount, 0f);
     }
 
     #endregion
@@ -303,23 +227,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
 
         previousItemIndex = itemIndex;
 
-        /*
-        if (item0Equipped)
-        {
-            items[1].itemGameObject.SetActive(true);
-            items[0].itemGameObject.SetActive(false);
-            item0Equipped = false;
-            itemIndex = 1;
-        }
-        else
-        {
-            items[0].itemGameObject.SetActive(true);
-            items[1].itemGameObject.SetActive(false);
-            item0Equipped = true;
-            itemIndex = 0;
-        }*/
-
-        if (PV.IsMine) //!!!
+        if (PV.IsMine)
         {
             Hashtable hash = new Hashtable();
             hash.Add("itemIndex", itemIndex);
@@ -344,9 +252,32 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         }
     }
 
-
     public void SetGroundedState(bool _grounded)
     {
         grounded = _grounded;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        PV.RPC("RPC_TakeDamage", RpcTarget.All, damage);
+    }
+
+    [PunRPC]
+    void RPC_TakeDamage(float damage)
+    {
+        if (!PV.IsMine)
+            return;
+
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        playerManager.Die();
     }
 }
