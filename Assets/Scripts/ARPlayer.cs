@@ -246,6 +246,15 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         EquipItem(itemIndex);
     }
 
+    public void FireButtonPressed()
+    {
+        if (PV.IsMine)
+        {
+            items[itemIndex].Use();
+        }
+        
+    }
+
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
         if (!PV.IsMine && targetPlayer == PV.Owner)
