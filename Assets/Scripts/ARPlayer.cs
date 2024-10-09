@@ -25,7 +25,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
 
     public Transform gyroCamera;
 
-    TrackedPoseDriver trackedPoseDriver;
+    //TrackedPoseDriver trackedPoseDriver;
     Rigidbody rb;
     PhotonView PV;
     Canvas canvas;
@@ -40,7 +40,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        trackedPoseDriver = gyroCamera.GetComponent<TrackedPoseDriver>();
+        //trackedPoseDriver = gyroCamera.GetComponent<TrackedPoseDriver>();
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
         canvas = transform.Find("Canvas").GetComponent<Canvas>();
@@ -51,7 +51,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks
         {
             canvas.gameObject.SetActive(true);
             gyroCamera.GetComponent<Camera>().enabled = true;
-            trackedPoseDriver.enabled = true;
+            //trackedPoseDriver.enabled = true;
             // Randomize the spawn position to avoid overlapping
             float randomOffset = Random.Range(-2f, 2f); // Adjust the range as needed
             transform.position += new Vector3(randomOffset, 0, randomOffset);
@@ -63,7 +63,12 @@ public class ARPlayer : MonoBehaviourPunCallbacks
             canvas.gameObject.SetActive(false);
             //Destroy(gyroCamera.gameObject);
             gyroCamera.GetComponent<Camera>().enabled = false;
-            trackedPoseDriver.enabled = false;
+            //trackedPoseDriver.enabled = false;
+            TrackedPoseDriver trackedPoseDriver = transform.Find("Camera Offset/Main Camera").GetComponent<TrackedPoseDriver>();
+            if (trackedPoseDriver != null)
+            {
+                trackedPoseDriver.enabled = false; // Disable TrackedPoseDriver to avoid overriding Photon Transform View
+            }
             Destroy(rb);
         }
     }
