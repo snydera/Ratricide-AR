@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerGroundCheck : MonoBehaviour
 {
-    PlayerController_Tutorial playerController;
-    //ARPlayer playerController;
+    //PlayerController_Tutorial playerController;
+    ARPlayer playerController;
 
     private void Awake()
     {
-        playerController = GetComponentInParent<PlayerController_Tutorial>();
-        //playerController = GetComponentInParent<ARPlayer>();
+        //playerController = GetComponentInParent<PlayerController_Tutorial>();
+        playerController = GetComponentInParent<ARPlayer>();
     }
 
     private void OnTriggerEnter(Collider other)

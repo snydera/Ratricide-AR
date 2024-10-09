@@ -52,9 +52,11 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             gyroCamera.GetComponent<Camera>().enabled = true;
             trackedPoseDriver.enabled = true;
             
+            /*
             // Randomize the spawn position to avoid overlapping
             float randomOffset = Random.Range(-2f, 2f); // Adjust the range as needed
             transform.position += new Vector3(randomOffset, 0, randomOffset);
+            */
 
             EquipItem(0);
         }
@@ -85,7 +87,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             items[itemIndex].Use();
         }
 
-        if (transform.position.y < 10f)
+        if (transform.position.y < -10f)
         {
             Die();
         }

@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 9165905088495311085}
   - component: {fileID: 2729242674035303264}
   - component: {fileID: 1933329798417924274}
+  - component: {fileID: 6369415912862122761}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -551,6 +552,66 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &6369415912862122761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2211204292758799362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 0}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &3672329943314700471
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +654,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7706774735630375342}
   - component: {fileID: 2266778894815497984}
+  - component: {fileID: 7891101150735157907}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -630,7 +692,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 98072debcf8e9a24eb511241ccd94fa7, type: 2}
   itemGameObject: {fileID: 3672329943314700471}
+  bulletImpactPrefab: {fileID: 4538595575263577280, guid: 110c3e0a1369fc74f96bd1ffb6f73ce3,
+    type: 3}
   cam: {fileID: 9165905088495311085}
+--- !u!114 &7891101150735157907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5511339532705461189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8308719688584014039
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,6 +843,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1411018553344727256}
   - component: {fileID: 7537965318227068853}
+  - component: {fileID: 7319496825718413748}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -794,4 +881,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: d42b474bb2fef69479dd8867e348dafd, type: 2}
   itemGameObject: {fileID: 804559131304477483}
+  bulletImpactPrefab: {fileID: 4538595575263577280, guid: 110c3e0a1369fc74f96bd1ffb6f73ce3,
+    type: 3}
   cam: {fileID: 9165905088495311085}
+--- !u!114 &7319496825718413748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8777586262142861256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

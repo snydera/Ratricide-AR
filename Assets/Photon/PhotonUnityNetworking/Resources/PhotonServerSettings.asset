@@ -41,6 +41,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - UpdateRotation
   - RPC_TakeDamage
+  - RPC_Shoot
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

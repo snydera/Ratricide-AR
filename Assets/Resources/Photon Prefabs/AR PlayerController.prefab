@@ -143,6 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7945560742705121754}
   - component: {fileID: 5723350640375155475}
+  - component: {fileID: 2048989927109495533}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -180,7 +181,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 98072debcf8e9a24eb511241ccd94fa7, type: 2}
   itemGameObject: {fileID: 2331777083007617967}
+  bulletImpactPrefab: {fileID: 4538595575263577280, guid: 110c3e0a1369fc74f96bd1ffb6f73ce3,
+    type: 3}
   cam: {fileID: 4278676756974592045}
+--- !u!114 &2048989927109495533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176043017516578820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &503232931609221521
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,6 +383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1793922531292640044}
   - component: {fileID: 1086472621973470196}
+  - component: {fileID: 4808402210781691589}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -395,7 +421,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: d42b474bb2fef69479dd8867e348dafd, type: 2}
   itemGameObject: {fileID: 5585390453334580361}
+  bulletImpactPrefab: {fileID: 4538595575263577280, guid: 110c3e0a1369fc74f96bd1ffb6f73ce3,
+    type: 3}
   cam: {fileID: 4278676756974592045}
+--- !u!114 &4808402210781691589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829474701410273029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &992869396305322660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2698,6 +2748,7 @@ GameObject:
   - component: {fileID: 871619955187248485}
   - component: {fileID: 2592207788243815029}
   - component: {fileID: 1944324424411647548}
+  - component: {fileID: 7321544887415461019}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2927,3 +2978,63 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &7321544887415461019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9190181868989197731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 0}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []

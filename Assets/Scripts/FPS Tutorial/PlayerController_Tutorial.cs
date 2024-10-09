@@ -100,9 +100,10 @@ public class PlayerController_Tutorial : MonoBehaviourPunCallbacks, IDamageable
             items[itemIndex].Use();
         }
 
-        if (transform.position.y < 10f)
+        if (transform.position.y < -10f)
         {
             Die();
+            Debug.Log("death by void");
         }
     }
 
@@ -194,6 +195,7 @@ public class PlayerController_Tutorial : MonoBehaviourPunCallbacks, IDamageable
         if (currentHealth <= 0)
         {
             Die();
+            Debug.Log("death by health");
         }
     }
 
