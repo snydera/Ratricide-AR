@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
@@ -25,6 +26,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     Rigidbody rb;
     PhotonView PV;
     Canvas canvas;
+
+    [SerializeField] Image healthbarImage;
 
     [SerializeField] Item[] items;
 
@@ -48,7 +51,6 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     {
         if (PV.IsMine)
         {
-            canvas.gameObject.SetActive(true);
             gyroCamera.GetComponent<Camera>().enabled = true;
             trackedPoseDriver.enabled = true;
             
@@ -62,7 +64,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         }
         else
         {
-            canvas.gameObject.SetActive(false);
+            Destroy(canvas.gameObject);
             gyroCamera.GetComponent<Camera>().enabled = false;
             
             if (trackedPoseDriver != null)
@@ -257,7 +259,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
-        if (!PV.IsMine && targetPlayer == PV.Owner)
+        if (changedProps.ContainsKey("itemIndex") && !PV.IsMine && targetPlayer == PV.Owner)
         {
             EquipItem((int)changedProps["itemIndex"]);
         }
@@ -270,20 +272,20 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     public void TakeDamage(float damage)
     {
-        PV.RPC("RPC_TakeDamage", RpcTarget.All, damage);
+        PV.RPC(nameof(RPC_TakeDamage), PV.Owner, damage);
     }
 
     [PunRPC]
-    void RPC_TakeDamage(float damage)
+    void RPC_TakeDamage(float damage, PhotonMessageInfo info)
     {
-        if (!PV.IsMine)
-            return;
-
         currentHealth -= damage;
+
+        healthbarImage.fillAmount = currentHealth / maxHealth;
 
         if (currentHealth <= 0)
         {
             Die();
+            PlayerManager.Find(info.Sender).GetKill();
         }
     }
 
