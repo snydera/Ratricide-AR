@@ -74,6 +74,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
             Destroy(rb);
         }
+
+        OffsetCameraRotation();
     }
 
 
@@ -93,6 +95,12 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         {
             Die();
         }
+    }
+
+    void OffsetCameraRotation()
+    {
+        transform.Find("Camera Offset").transform.localRotation = transform.rotation;
+        transform.rotation = Quaternion.identity;
     }
 
     #region Pointer Event bools
@@ -292,5 +300,6 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     void Die()
     {
         playerManager.Die();
+        OffsetCameraRotation();
     }
 }
