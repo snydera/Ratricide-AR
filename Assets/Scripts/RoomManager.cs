@@ -35,17 +35,40 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
+        /*
         if (scene.buildIndex == 1) // We're in the game scene
         {
             Debug.Log("Scene 1 Loaded");
             PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+        }*/
+
+        if (scene.buildIndex == 1) // We're in the game scene
+        {
+            Debug.Log("Scene 1 Loaded");
+            PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+
+            // If the master client, generate and share the seed
+            if (PhotonNetwork.IsMasterClient)
+            {
+                int seed = Random.Range(0, 1000000); // Generate a random seed
+                photonView.RPC("RPC_SetMazeSeed", RpcTarget.All, seed); // Send the seed to all clients
+            }
         }
     }
 
-    IEnumerator PlayerInstantiateDelay()
+    // RPC for setting the maze seed across all clients
+    [PunRPC]
+    public void RPC_SetMazeSeed(int seed)
     {
-        yield return new WaitForSeconds(5f);
-        
-        
+        // Find the MazeGenerator in the scene and pass the seed
+        MazeGenerator mazeGenerator = FindObjectOfType<MazeGenerator>();
+        if (mazeGenerator != null)
+        {
+            mazeGenerator.StartMazeGeneration(seed); // Call the method with the seed
+        }
+        else
+        {
+            Debug.LogError("MazeGenerator not found in the scene.");
+        }
     }
 }

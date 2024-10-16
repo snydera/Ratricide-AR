@@ -16,9 +16,12 @@ public class MazeGenerator : MonoBehaviour
 
     private MazeCell[,] _mazeGrid;
 
-    void Start()
+    public void StartMazeGeneration(int seed)
     {
         _mazeGrid = new MazeCell[_mazeWidth, _mazeDepth];
+
+        // Set the seed for random generation
+        Random.InitState(seed);
 
         for (int x = 0; x < _mazeWidth; x++)
         {
@@ -30,8 +33,10 @@ public class MazeGenerator : MonoBehaviour
 
         GenerateMaze(null, _mazeGrid[0, 0]);
 
-        transform.localScale = new Vector3(2, 1, 2);
+        transform.localScale = new Vector3(3, 1, 3);
     }
+
+
 
     private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
     {
