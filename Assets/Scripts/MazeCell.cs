@@ -2,48 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MazeCell : MonoBehaviour
+public class MazeCell : MonoBehaviour, IDamageable
 {
     [SerializeField]
-    private GameObject _leftWall;
+    public GameObject leftWall;
 
     [SerializeField]
-    private GameObject _rightWall;
+    public GameObject rightWall;
 
     [SerializeField]
-    private GameObject _frontWall;
+    public GameObject frontWall;
 
     [SerializeField]
-    private GameObject _backWall;
+    public GameObject backWall;
 
     [SerializeField]
-    private GameObject _unvisitedBlock;
+    private GameObject unvisitedBlock;
 
     public bool IsVisited { get; private set; }
 
     public void Visit()
     {
         IsVisited = true;
-        _unvisitedBlock.SetActive(false);
+        unvisitedBlock.SetActive(false);
     }
 
     public void ClearLeftWall()
     {
-        _leftWall.SetActive(false);
+        leftWall.SetActive(false);
     }
 
     public void ClearRightWall()
     {
-        _rightWall.SetActive(false);
+        rightWall.SetActive(false);
     }
 
     public void ClearFrontWall()
     {
-        _frontWall.SetActive(false);
+        frontWall.SetActive(false);
     }
 
     public void ClearBackWall()
     {
-        _backWall.SetActive(false);
+        backWall.SetActive(false);
+    }
+
+    // Implementing the IDamageable interface
+    public void TakeDamage(float damage)
+    {
+        // Implement your destruction logic here, like destroying or deactivating the wall
+        Debug.Log("Wall took damage: " + damage);
     }
 }

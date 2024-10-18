@@ -26,6 +26,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     Rigidbody rb;
     PhotonView PV;
     Canvas canvas;
+    
+    [SerializeField] Renderer headRenderer;
 
     [SerializeField] Image healthbarImage;
 
@@ -35,9 +37,11 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     int previousItemIndex = -1;
 
     const float maxHealth = 100f;
-    float currentHealth = maxHealth;
+    [SerializeField] float currentHealth = maxHealth;
 
     PlayerManager playerManager;
+
+    [SerializeField] Animator anim;
 
     private void Awake()
     {
@@ -53,6 +57,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         {
             gyroCamera.GetComponent<Camera>().enabled = true;
             trackedPoseDriver.enabled = true;
+            //headRenderer.enabled = false;
+            
             
             /*
             // Randomize the spawn position to avoid overlapping
@@ -95,6 +101,14 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         {
             Die();
         }
+
+        /*
+        //!!! remove before build
+        if (currentHealth <= 0)
+        {
+            anim.SetBool("isDead", true);
+            StartCoroutine(DeathRoutine());
+        }*/
     }
 
     void OffsetCameraRotation()
@@ -109,6 +123,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         if (PV.IsMine)
         {
             moveForward = true;
+            anim.SetBool("isMovingForward", true);
         }
     }
 
@@ -117,6 +132,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         if (PV.IsMine)
         {
             moveForward = false;
+            anim.SetBool("isMovingForward", false);
         }
     }
 
@@ -125,6 +141,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         if (PV.IsMine)
         {
             moveBackward = true;
+            anim.SetBool("isMovingBackward", true);
         }
     }
 
@@ -133,6 +150,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         if (PV.IsMine)
         {
             moveBackward = false;
+            anim.SetBool("isMovingBackward", false);
         }
     }
 
@@ -141,6 +159,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         if (PV.IsMine)
         {
             moveLeft = true;
+            anim.SetBool("isStrafingLeft", true);
         }
     }
 
@@ -149,6 +168,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         if (PV.IsMine)
         {
             moveLeft = false;
+            anim.SetBool("isStrafingLeft", false);
         }
     }
 
@@ -157,14 +177,16 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         if (PV.IsMine)
         {
             moveRight = true;
+            anim.SetBool("isStrafingRight", true);
         }
     }
 
-    public void PointerUpMoveRigh()
+    public void PointerUpMoveRight()
     {
         if (PV.IsMine)
         {
             moveRight = false;
+            anim.SetBool("isStrafingRight", false);
         }
     }
 
@@ -254,6 +276,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
         // Equip the item based on the updated itemIndex
         EquipItem(itemIndex);
+        anim.SetInteger("ItemIndex", itemIndex);
     }
 
     public void FireButtonPressed()
@@ -292,7 +315,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
         if (currentHealth <= 0)
         {
-            Die();
+            anim.SetBool("isDead", true);
+            StartCoroutine(DeathRoutine());
             PlayerManager.Find(info.Sender).GetKill();
         }
     }
@@ -301,5 +325,14 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     {
         playerManager.Die();
         OffsetCameraRotation();
+        anim.SetBool("isDead", false);
     }
+
+    IEnumerator DeathRoutine()
+    {       
+        yield return new WaitForSeconds(4);
+
+        Die();
+    }
+    
 }
