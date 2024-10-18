@@ -6,6 +6,7 @@ using UnityEngine;
 public class SyncPlayerRotation : MonoBehaviourPun
 {
     public Transform cameraTransform;
+    public Transform modelTransform;
 
     private void FixedUpdate()
     {
@@ -13,6 +14,7 @@ public class SyncPlayerRotation : MonoBehaviourPun
         {
             // Send the local player's camera rotation to the network
             photonView.RPC("UpdateRotation", RpcTarget.Others, cameraTransform.rotation);
+            photonView.RPC("UpdateRotation", RpcTarget.Others, modelTransform.rotation);
         }
     }
 
@@ -21,5 +23,6 @@ public class SyncPlayerRotation : MonoBehaviourPun
     {
         // Apply the received rotation to the camera
         cameraTransform.rotation = newRotation;
+        modelTransform.rotation = newRotation;
     }
 }

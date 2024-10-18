@@ -27,7 +27,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     PhotonView PV;
     Canvas canvas;
     
-    [SerializeField] Renderer headRenderer;
+    //[SerializeField] Renderer headRenderer;
 
     [SerializeField] Image healthbarImage;
 
@@ -56,6 +56,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         if (PV.IsMine)
         {
             gyroCamera.GetComponent<Camera>().enabled = true;
+            
             trackedPoseDriver.enabled = true;
             //headRenderer.enabled = false;
             
@@ -72,6 +73,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         {
             Destroy(canvas.gameObject);
             gyroCamera.GetComponent<Camera>().enabled = false;
+            Destroy(gyroCamera.GetComponent<Camera>());
+            
             
             if (trackedPoseDriver != null)
             {

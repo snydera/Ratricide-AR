@@ -45,7 +45,7 @@ public class MazeGenerator : MonoBehaviour
 
         GenerateMaze(null, _mazeGrid[0, 0]);
 
-        transform.localScale = new Vector3(7, 2, 7);
+        transform.localScale = new Vector3(7, 1, 7);
     }
 
     private bool IsInteriorCell(int x, int z)
