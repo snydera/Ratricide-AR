@@ -10,7 +10,9 @@ public class SyncToCameraYRotation : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //transform.localRotation = Quaternion.Euler(0, camTransform.localRotation.y, 0);
-        transform.Rotate(0, camTransform.localRotation.y, 0);
+        // Sync the Y rotation of the model with the camera's Y rotation
+        Vector3 currentRotation = transform.rotation.eulerAngles;
+        currentRotation.y = camTransform.rotation.eulerAngles.y;
+        transform.rotation = Quaternion.Euler(currentRotation);
     }
 }

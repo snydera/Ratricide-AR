@@ -3883,31 +3883,31 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isMovingForward
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isMovingBackward
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isStrafingLeft
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isStrafingRight
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isHoldingRifle
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isHoldingPistol
   - Type: 3
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: ItemIndex
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isDead
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!4 &6343520831894152186 stripped
 Transform:

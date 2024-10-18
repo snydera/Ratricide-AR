@@ -4,7 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
+using UnityEngine.XR.ARFoundation;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
@@ -75,6 +77,10 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             gyroCamera.GetComponent<Camera>().enabled = false;
             Destroy(gyroCamera.GetComponent<Camera>());
             Destroy(gyroCamera.GetComponent<AudioListener>());
+            Destroy(gyroCamera.GetComponent<ARCameraManager>());
+            Destroy(gyroCamera.GetComponent<ARCameraBackground>());
+            Destroy(gyroCamera.GetComponent<PostProcessLayer>());
+            
             
             
             if (trackedPoseDriver != null)
