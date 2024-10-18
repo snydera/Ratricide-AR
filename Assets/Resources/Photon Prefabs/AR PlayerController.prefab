@@ -1136,6 +1136,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3918730323737211216}
+  - {fileID: 5059692070206307289}
   m_Father: {fileID: 3914646128972028649}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2781406090182744848
@@ -3204,8 +3205,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5059692070206307289}
+  m_Children: []
   m_Father: {fileID: 4515507681977753492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &4278676756974592045
@@ -3569,7 +3569,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3918730323737211216}
+    m_TransformParent: {fileID: 4515507681977753492}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 36fb55f71d20d0b4498fbbcb496d04d7,
         type: 3}
@@ -3599,7 +3599,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 36fb55f71d20d0b4498fbbcb496d04d7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36fb55f71d20d0b4498fbbcb496d04d7,
         type: 3}
@@ -3742,6 +3742,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3235344778943354835}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36fb55f71d20d0b4498fbbcb496d04d7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5602146538648722776}
   m_SourcePrefab: {fileID: 100100000, guid: 36fb55f71d20d0b4498fbbcb496d04d7, type: 3}
 --- !u!95 &1213596910804017571 stripped
 Animator:
@@ -3809,6 +3813,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 94
   m_CollisionDetection: 2
+--- !u!114 &5602146538648722776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5583464691741598051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b32dca65b3b53d346af6f89d24c41b73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 3918730323737211216}
 --- !u!4 &6343520831894152186 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 36fb55f71d20d0b4498fbbcb496d04d7,
