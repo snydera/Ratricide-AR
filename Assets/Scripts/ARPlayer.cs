@@ -74,6 +74,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             Destroy(canvas.gameObject);
             gyroCamera.GetComponent<Camera>().enabled = false;
             Destroy(gyroCamera.GetComponent<Camera>());
+            Destroy(gyroCamera.GetComponent<AudioListener>());
             
             
             if (trackedPoseDriver != null)
@@ -279,7 +280,11 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
         // Equip the item based on the updated itemIndex
         EquipItem(itemIndex);
-        anim.SetInteger("ItemIndex", itemIndex);
+        if (PV.IsMine)
+        {
+            anim.SetInteger("ItemIndex", itemIndex);
+        }
+        
     }
 
     public void FireButtonPressed()
@@ -318,7 +323,11 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
         if (currentHealth <= 0)
         {
-            anim.SetBool("isDead", true);
+            if (!PV.IsMine)
+            {
+                anim.SetBool("isDead", true);
+            }
+            
             StartCoroutine(DeathRoutine());
             PlayerManager.Find(info.Sender).GetKill();
         }
@@ -328,7 +337,11 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     {
         playerManager.Die();
         OffsetCameraRotation();
-        anim.SetBool("isDead", false);
+        if (PV.IsMine)
+        {
+            anim.SetBool("isDead", false);
+        }
+        
     }
 
     IEnumerator DeathRoutine()

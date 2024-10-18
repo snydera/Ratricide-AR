@@ -3760,6 +3760,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7432023131712673150}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36fb55f71d20d0b4498fbbcb496d04d7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7336414499392682504}
   m_SourcePrefab: {fileID: 100100000, guid: 36fb55f71d20d0b4498fbbcb496d04d7, type: 3}
 --- !u!95 &1213596910804017571 stripped
 Animator:
@@ -3858,10 +3862,53 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 7336414499392682504}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7336414499392682504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5583464691741598051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: isMovingForward
+  - Type: 4
+    SynchronizeType: 0
+    Name: isMovingBackward
+  - Type: 4
+    SynchronizeType: 0
+    Name: isStrafingLeft
+  - Type: 4
+    SynchronizeType: 0
+    Name: isStrafingRight
+  - Type: 4
+    SynchronizeType: 0
+    Name: isHoldingRifle
+  - Type: 4
+    SynchronizeType: 0
+    Name: isHoldingPistol
+  - Type: 3
+    SynchronizeType: 0
+    Name: ItemIndex
+  - Type: 4
+    SynchronizeType: 0
+    Name: isDead
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!4 &6343520831894152186 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 36fb55f71d20d0b4498fbbcb496d04d7,
