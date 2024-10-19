@@ -7,7 +7,7 @@ using Photon.Realtime;
 using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviourPunCallbacks
 {
     PhotonView PV;
 
@@ -31,8 +31,10 @@ public class PlayerManager : MonoBehaviour
 
     void CreateController()
     {
-        Transform spawnpoint = SpawnManager.Instance.GetSpawnpoint();
+        //Transform spawnpoint = SpawnManager.Instance.GetSpawnpoint();
         //controller = PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "PlayerController_Tutorial"), spawnpoint.position, spawnpoint.rotation, 0, new object[] { PV.ViewID });
+
+        Transform spawnpoint = SpawnManager.Instance.GetSpawnpoint(PV.Owner.ActorNumber); // Use player ID
         controller = PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "AR PlayerController"), spawnpoint.position, spawnpoint.rotation, 0, new object[] { PV.ViewID });
     }
 
@@ -66,5 +68,14 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Find(Player player)
     {
         return FindObjectsOfType<PlayerManager>().SingleOrDefault(x => x.PV.Owner == player);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log($"{otherPlayer.NickName} left the room.");
+        if (controller != null)
+        {
+            PhotonNetwork.Destroy(controller);  // Clean up their objects
+        }
     }
 }

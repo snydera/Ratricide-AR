@@ -5,6 +5,7 @@ using Photon.Pun;
 using TMPro;
 using Photon.Realtime;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -51,6 +52,10 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             return;
         }
+
+        //!!! This needs to be tested with at least 5 players
+        RoomOptions options = new RoomOptions();
+        options.MaxPlayers = 4;  // Set the room to allow a maximum of 4 players
 
         PhotonNetwork.CreateRoom(roomNameInputField.text);
         MenuManager.Instance.OpenMenu("loading");
@@ -104,10 +109,17 @@ public class Launcher : MonoBehaviourPunCallbacks
         MenuManager.Instance.OpenMenu("loading");
     }
 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log($"{otherPlayer.NickName} left the room.");
+        // Optional: update UI or perform cleanup as needed
+    }
+
     public override void OnLeftRoom()
     {
         MenuManager.Instance.OpenMenu("title");
     }
+
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
@@ -123,7 +135,17 @@ public class Launcher : MonoBehaviourPunCallbacks
                 continue;
             }
 
-            Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
+            //Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
+
+            //!!! This needs to be tested with at least 5 players
+            var roomListItem = Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>();
+            roomListItem.SetUp(roomList[i]);
+
+            // Disable the button if the room is full
+            if (roomList[i].PlayerCount >= roomList[i].MaxPlayers)
+            {
+                roomListItem.GetComponent<Button>().interactable = false;
+            }
         }
     }
 

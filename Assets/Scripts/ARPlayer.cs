@@ -30,6 +30,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     Canvas canvas;
     
     //[SerializeField] Renderer headRenderer;
+    [SerializeField] GameObject headMesh;
 
     [SerializeField] Image healthbarImage;
 
@@ -61,6 +62,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             
             trackedPoseDriver.enabled = true;
             //headRenderer.enabled = false;
+            headMesh.layer = 7;
             
             
             /*
@@ -74,13 +76,16 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         else
         {
             Destroy(canvas.gameObject);
+
+            Destroy(gyroCamera.gameObject);
+            /*
             gyroCamera.GetComponent<Camera>().enabled = false;
             Destroy(gyroCamera.GetComponent<Camera>());
             Destroy(gyroCamera.GetComponent<AudioListener>());
             Destroy(gyroCamera.GetComponent<ARCameraManager>());
             Destroy(gyroCamera.GetComponent<ARCameraBackground>());
             Destroy(gyroCamera.GetComponent<PostProcessLayer>());
-            
+            */
             
             
             if (trackedPoseDriver != null)
@@ -112,13 +117,13 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             Die();
         }
 
-        /*
+        
         //!!! remove before build
         if (currentHealth <= 0)
         {
             anim.SetBool("isDead", true);
             StartCoroutine(DeathRoutine());
-        }*/
+        }
     }
 
     void OffsetCameraRotation()
