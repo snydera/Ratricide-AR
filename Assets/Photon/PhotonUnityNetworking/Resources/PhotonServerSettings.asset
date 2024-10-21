@@ -44,6 +44,7 @@ MonoBehaviour:
   - RPC_Shoot
   - RPC_GetKill
   - RPC_SetMazeSeed
+  - ReceiveHeartbeat
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

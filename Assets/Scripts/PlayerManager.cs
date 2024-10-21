@@ -69,13 +69,5 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         return FindObjectsOfType<PlayerManager>().SingleOrDefault(x => x.PV.Owner == player);
     }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        Debug.Log($"{otherPlayer.NickName} left the room.");
-        if (controller != null)
-        {
-            PhotonNetwork.Destroy(controller);  // Clean up their objects
-        }
-    }
+    
 }
