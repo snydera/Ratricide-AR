@@ -15,10 +15,13 @@ public class Billboard : MonoBehaviour
         if (cam == null )
             return;
 
+
+        transform.LookAt(cam.transform);
+        transform.Rotate(Vector3.up * 180);
+
         if (cam.isActiveAndEnabled == true)
         {
-            transform.LookAt(cam.transform);
-            transform.Rotate(Vector3.up * 180);
+            
         }      
     }
 }
