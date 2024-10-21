@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -19,6 +20,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         DontDestroyOnLoad(gameObject);
         Instance = this;
+
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     public override void OnEnable()
@@ -70,5 +73,38 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
             Debug.LogError("MazeGenerator not found in the scene.");
         }
+    }
+
+    // Handle player disconnection
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log($"{otherPlayer.NickName} has left the game.");
+
+        // Find and destroy the disconnected player's PlayerManager
+        PlayerManager playerManager = PlayerManager.Find(otherPlayer);
+        if (playerManager != null)
+        {
+            Destroy(playerManager.gameObject);
+        }
+
+        // Notify remaining players or update game state as needed
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Master client updated after player left.");
+            // Potentially assign a new master client or update the game state
+        }
+    }
+
+    // Optionally handle when the local player (yourself) leaves the room
+    public void LeaveGame()
+    {
+        PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene(0); // Or whatever your lobby scene is
+    }
+
+    public override void OnLeftRoom()
+    {
+        Debug.Log("Left the room.");
+        SceneManager.LoadScene(0); // Back to lobby
     }
 }

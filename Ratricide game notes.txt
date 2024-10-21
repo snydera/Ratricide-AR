@@ -1,0 +1,12 @@
+Ratricide
+
+fix username billboard issue
+
+remove player collision on death and re-enable on respawn.
+
+Fix players spawning in the same spot
+
+fix tracking/camera issues when player leaves game.
+
+
+
