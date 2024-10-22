@@ -48,7 +48,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     private void Awake()
     {
-        trackedPoseDriver = gyroCamera.GetComponent<TrackedPoseDriver>();
+        //trackedPoseDriver = gyroCamera.GetComponent<TrackedPoseDriver>();
         rb = GetComponent<Rigidbody>();
         PV = GetComponent<PhotonView>();
         canvas = transform.Find("Canvas").GetComponent<Canvas>();
@@ -60,7 +60,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         {
             gyroCamera.GetComponent<Camera>().enabled = true;
             
-            trackedPoseDriver.enabled = true;
+            //trackedPoseDriver.enabled = true;
             //headRenderer.enabled = false;
             headMesh.layer = 7;
             
@@ -87,11 +87,11 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             Destroy(gyroCamera.GetComponent<PostProcessLayer>());
             */
             
-            
+            /*
             if (trackedPoseDriver != null)
             {
                 trackedPoseDriver.enabled = false;
-            }
+            }*/
 
             Destroy(rb);
         }

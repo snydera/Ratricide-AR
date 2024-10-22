@@ -15,7 +15,8 @@ public class SyncToCameraYRotation : MonoBehaviour
 
         if( PV.IsMine)
         {
-            camTransform = transform.parent.transform.Find("Camera Offset").Find("Main Camera").transform;
+            //camTransform = transform.parent.transform.Find("Camera Offset").Find("Main Camera").transform;
+            camTransform = transform.parent.transform.Find("Camera Offset").Find("Tracking").transform;
         }
     }
 
