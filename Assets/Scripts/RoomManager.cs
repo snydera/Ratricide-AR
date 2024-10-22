@@ -10,11 +10,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
 
-    private float heartbeatInterval = 5f; // Interval in seconds between heartbeats
-    private float lastHeartbeatTime = 0f; // Time of last heartbeat
-
-    private Dictionary<int, float> playerLastHeartbeat = new Dictionary<int, float>(); // Store last heartbeat time for each player
-
     private void Awake()
     {
         if (Instance) //checks if another RoomManager exists
@@ -26,60 +21,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(gameObject);
         Instance = this;
 
-        //GetComponent<PhotonView>().ViewID = 0;  // Let Photon assign a dynamic ID
-
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
-
-    private void Update()
-    {
-        /*
-        // If master client, check heartbeats
-        if (PhotonNetwork.IsMasterClient)
-        {
-            //CheckPlayerHeartbeats();
-        }
-
-        // Send your heartbeat
-        if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom && Time.time - lastHeartbeatTime > heartbeatInterval)
-        {
-            lastHeartbeatTime = Time.time;
-            photonView.RPC("ReceiveHeartbeat", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
-        }*/
-    }
-    /*
-    // Master client receives heartbeat from a player
-    [PunRPC]
-    void ReceiveHeartbeat(int playerID)
-    {
-        playerLastHeartbeat[playerID] = Time.time;
-    }
-
-    // Check player heartbeats and disconnect inactive players
-    void CheckPlayerHeartbeats()
-    {
-        float timeoutDuration = 10f; // Maximum time allowed without heartbeat
-        List<int> playersToDisconnect = new List<int>();
-
-        foreach (var player in playerLastHeartbeat)
-        {
-            if (Time.time - player.Value > timeoutDuration)
-            {
-                // Player hasn't sent a heartbeat in a while
-                playersToDisconnect.Add(player.Key);
-            }
-        }
-
-        // Disconnect players that have timed out
-        foreach (int playerID in playersToDisconnect)
-        {
-            Photon.Realtime.Player player = PhotonNetwork.CurrentRoom.GetPlayer(playerID);
-            if (player != null)
-            {
-                PhotonNetwork.CloseConnection(player); // Disconnect the unresponsive player
-            }
-        }
-    }*/
+        
 
     public override void OnEnable()
     {
@@ -95,13 +39,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
-        /*
-        if (scene.buildIndex == 1) // We're in the game scene
-        {
-            Debug.Log("Scene 1 Loaded");
-            PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
-        }*/
-
         if (scene.buildIndex == 1) // We're in the game scene
         {
             Debug.Log("Scene 1 Loaded");
@@ -139,17 +76,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
     }
 
     public override void OnLeftRoom()
-    {
-        /*
-        Debug.Log("Left the room.");
-        SceneManager.LoadScene(0); // Back to lobby
-        //PhotonNetwork.LoadLevel(0);
-        */
-        /*
+    {       
         if (Instance == this)
         {
             Instance = null; // Clear the instance to prevent reference issues
-        }*/
+        }
 
         Destroy(gameObject);  // Destroy this instance to prevent it from carrying over
         SceneManager.LoadScene(0);  // Load the launcher scene after

@@ -62,7 +62,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         kills++;
 
         Hashtable hash = new Hashtable();
-        //hash.Add("kills", kills);
+        hash.Add("kills", kills);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
@@ -100,18 +100,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
             PhotonNetwork.LeaveRoom();
         }
-
-        //StartCoroutine(DisconnectAndLoad());
     }
-    /*
-    IEnumerator DisconnectAndLoad()
-    {
-        PhotonNetwork.Disconnect();
-        while (PhotonNetwork.IsConnected)
-            yield return null;
-        SceneManager.LoadScene(0);
-
-    }*/
 
     private void MigrateMaster()
     {
@@ -119,11 +108,4 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.SetMasterClient(dict[dict.Count - 1]))
             PhotonNetwork.LeaveRoom();
     }
-    /*
-    public override void OnLeftRoom()
-    {
-        Debug.Log("Left the room.");
-        SceneManager.LoadScene(0); // Back to lobby
-        //PhotonNetwork.LoadLevel(0);
-    }*/
 }
