@@ -62,7 +62,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         kills++;
 
         Hashtable hash = new Hashtable();
-        hash.Add("kills", kills);
+        //hash.Add("kills", kills);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
@@ -73,13 +73,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        if (PV.IsMine)  // Only act if this is the local player's manager
+        if (PV.Owner == otherPlayer && controller != null)
         {
-            Debug.Log($"{otherPlayer.NickName} left the room.");
-            if (controller != null)
-            {
-                PhotonNetwork.Destroy(controller);  // Clean up local controller
-            }
+            PhotonNetwork.Destroy(controller); // Destroy the correct controller for the leaving player
         }
     }
 

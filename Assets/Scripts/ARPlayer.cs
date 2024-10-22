@@ -307,6 +307,14 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         
     }
 
+    public void OnLeaveGameButtonPressed()
+    {
+        if (PV.IsMine)
+        {
+            playerManager.LeaveGame();  // Call the PlayerManager's LeaveGame method
+        }
+    }
+
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
         if (changedProps.ContainsKey("itemIndex") && !PV.IsMine && targetPlayer == PV.Owner)

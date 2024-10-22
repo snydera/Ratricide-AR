@@ -131,14 +131,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        Debug.Log($"{otherPlayer.NickName} has disconnected.");
-
-        // Let the PlayerManager handle its own cleanup
-        PlayerManager leavingPlayerManager = PlayerManager.Find(otherPlayer);
-        if (leavingPlayerManager != null)
-        {
-            Debug.Log($"Cleaned up {otherPlayer.NickName}'s player manager.");
-        }
+        Debug.Log($"{otherPlayer.NickName} has left the game.");
     }
 
 
