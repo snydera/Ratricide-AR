@@ -25,7 +25,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         DontDestroyOnLoad(gameObject);
         Instance = this;
-        
+
+        //GetComponent<PhotonView>().ViewID = 0;  // Let Photon assign a dynamic ID
+
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
@@ -112,6 +114,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 photonView.RPC("RPC_SetMazeSeed", RpcTarget.All, seed); // Send the seed to all clients
             }
         }
+        
     }
 
     // RPC for setting the maze seed across all clients
@@ -137,8 +140,18 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
+        /*
         Debug.Log("Left the room.");
         SceneManager.LoadScene(0); // Back to lobby
         //PhotonNetwork.LoadLevel(0);
+        */
+        /*
+        if (Instance == this)
+        {
+            Instance = null; // Clear the instance to prevent reference issues
+        }*/
+
+        Destroy(gameObject);  // Destroy this instance to prevent it from carrying over
+        SceneManager.LoadScene(0);  // Load the launcher scene after
     }
 }
