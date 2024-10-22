@@ -34,7 +34,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         // If master client, check heartbeats
         if (PhotonNetwork.IsMasterClient)
         {
-            CheckPlayerHeartbeats();
+            //CheckPlayerHeartbeats();
         }
 
         // Send your heartbeat
@@ -44,7 +44,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             photonView.RPC("ReceiveHeartbeat", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
         }
     }
-
+    /*
     // Master client receives heartbeat from a player
     [PunRPC]
     void ReceiveHeartbeat(int playerID)
@@ -76,7 +76,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.CloseConnection(player); // Disconnect the unresponsive player
             }
         }
-    }
+    }*/
 
     public override void OnEnable()
     {

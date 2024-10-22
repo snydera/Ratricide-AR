@@ -88,7 +88,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LeaveRoom();
             //SceneManager.LoadScene(0); // Or whatever your lobby scene is
         } */
-
+        /*
         if (PhotonNetwork.InRoom)
         {
             if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount > 1) MigrateMaster();
@@ -97,7 +97,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
                 PhotonNetwork.LeaveRoom();
             }
-        }
+        }*/
+
+        StartCoroutine(DisconnectAndLoad());
+    }
+
+    IEnumerator DisconnectAndLoad()
+    {
+        PhotonNetwork.Disconnect();
+        while (PhotonNetwork.IsConnected)
+            yield return null;
+        SceneManager.LoadScene(0);
+
     }
 
     private void MigrateMaster()
@@ -110,6 +121,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         Debug.Log("Left the room.");
-        SceneManager.LoadScene(0); // Back to lobby
+        //SceneManager.LoadScene(0); // Back to lobby
+        PhotonNetwork.LoadLevel(0);
     }
 }
