@@ -14,6 +14,7 @@ public class LeaveGameButton : MonoBehaviour
     void Start()
     {
         leaveGameButton.onClick.AddListener(FindObjectOfType<RoomManager>().LeaveGame);
+        
             
     }
 }

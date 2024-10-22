@@ -133,18 +133,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         Debug.Log($"{otherPlayer.NickName} has disconnected.");
 
-        // Remove the leaving player's objects
-        PlayerManager playerManager = PlayerManager.Find(otherPlayer);
-        if (playerManager != null)
+        // Let the PlayerManager handle its own cleanup
+        PlayerManager leavingPlayerManager = PlayerManager.Find(otherPlayer);
+        if (leavingPlayerManager != null)
         {
-            playerManager.Die();  // Clean up objects related to this player
-        }
-
-        // Handle any additional logic, like assigning a new master client if necessary
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Debug.Log("Master Client is handling disconnection.");
-            // Handle additional game state updates if needed
+            Debug.Log($"Cleaned up {otherPlayer.NickName}'s player manager.");
         }
     }
 
