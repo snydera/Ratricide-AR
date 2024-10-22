@@ -82,11 +82,29 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     // Optionally handle when the local player (yourself) leaves the room
     public void LeaveGame()
     {
+        /*
         if (PV.IsMine)
         {
             PhotonNetwork.LeaveRoom();
             //SceneManager.LoadScene(0); // Or whatever your lobby scene is
-        } 
+        } */
+
+        if (PhotonNetwork.InRoom)
+        {
+            if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount > 1) MigrateMaster();
+            else
+            {
+                PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
+                PhotonNetwork.LeaveRoom();
+            }
+        }
+    }
+
+    private void MigrateMaster()
+    {
+        var dict = PhotonNetwork.CurrentRoom.Players;
+        if (PhotonNetwork.SetMasterClient(dict[dict.Count - 1]))
+            PhotonNetwork.LeaveRoom();
     }
 
     public override void OnLeftRoom()
