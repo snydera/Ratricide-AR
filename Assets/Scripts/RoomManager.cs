@@ -141,16 +141,5 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
     }
 
-    // Optionally handle when the local player (yourself) leaves the room
-    public void LeaveGame()
-    {
-        PhotonNetwork.LeaveRoom();
-        SceneManager.LoadScene(0); // Or whatever your lobby scene is
-    }
 
-    public override void OnLeftRoom()
-    {
-        Debug.Log("Left the room.");
-        SceneManager.LoadScene(0); // Back to lobby
-    }
 }

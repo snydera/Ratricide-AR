@@ -6,6 +6,7 @@ using UnityEngine;
 using Photon.Realtime;
 using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviourPunCallbacks
 {
@@ -80,5 +81,21 @@ public class PlayerManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.Destroy(controller);  // Clean up local controller
             }
         }
+    }
+
+    // Optionally handle when the local player (yourself) leaves the room
+    public void LeaveGame()
+    {
+        if (PV.IsMine)
+        {
+            PhotonNetwork.LeaveRoom();
+            //SceneManager.LoadScene(0); // Or whatever your lobby scene is
+        } 
+    }
+
+    public override void OnLeftRoom()
+    {
+        Debug.Log("Left the room.");
+        SceneManager.LoadScene(0); // Back to lobby
     }
 }
