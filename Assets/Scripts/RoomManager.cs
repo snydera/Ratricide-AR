@@ -25,12 +25,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         DontDestroyOnLoad(gameObject);
         Instance = this;
-
+        
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     private void Update()
     {
+        /*
         // If master client, check heartbeats
         if (PhotonNetwork.IsMasterClient)
         {
@@ -42,7 +43,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
             lastHeartbeatTime = Time.time;
             photonView.RPC("ReceiveHeartbeat", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
-        }
+        }*/
     }
     /*
     // Master client receives heartbeat from a player
@@ -134,5 +135,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Debug.Log($"{otherPlayer.NickName} has left the game.");
     }
 
-
+    public override void OnLeftRoom()
+    {
+        Debug.Log("Left the room.");
+        SceneManager.LoadScene(0); // Back to lobby
+        //PhotonNetwork.LoadLevel(0);
+    }
 }
