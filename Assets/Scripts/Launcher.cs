@@ -57,14 +57,14 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             return;
         }
-
+        /*
         //!!! This needs to be tested with at least 5 players
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 4;  // Set the room to allow a maximum of 4 players
 
         options.IsVisible = true;
         options.IsOpen = true;
-
+        */
         PhotonNetwork.CreateRoom(roomNameInputField.text);
         MenuManager.Instance.OpenMenu("loading");
     }
