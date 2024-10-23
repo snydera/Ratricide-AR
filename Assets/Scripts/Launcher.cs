@@ -62,6 +62,9 @@ public class Launcher : MonoBehaviourPunCallbacks
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 4;  // Set the room to allow a maximum of 4 players
 
+        options.IsVisible = true;
+        options.IsOpen = true;
+
         PhotonNetwork.CreateRoom(roomNameInputField.text);
         MenuManager.Instance.OpenMenu("loading");
     }
@@ -128,6 +131,11 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+        foreach (RoomInfo room in roomList)
+        {
+            Debug.Log($"Room: {room.Name}, Players: {room.PlayerCount}/{room.MaxPlayers}, Removed: {room.RemovedFromList}");
+        }
+
         foreach (Transform trans in roomListContent)
         {
             Destroy(trans.gameObject);

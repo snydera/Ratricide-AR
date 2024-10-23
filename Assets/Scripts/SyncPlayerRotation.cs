@@ -25,4 +25,7 @@ public class SyncPlayerRotation : MonoBehaviourPun
         //cameraTransform.rotation = newRotation;
         modelTransform.rotation = newRotation;
     }
+
+    //Received RPC "UpdateRotation" for viewID 4002 but this PhotonView does not exist! Was remote PV. Owner called.
+    //By: #04 'IPhone' Maybe GO was destroyed but RPC not cleaned up.
 }
