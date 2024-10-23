@@ -138,7 +138,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             Destroy(trans.gameObject);
         }
 
-        /*
+        
         for (int i = 0; i < roomList.Count; i++)
         {
             if (roomList[i].RemovedFromList)
@@ -146,8 +146,9 @@ public class Launcher : MonoBehaviourPunCallbacks
                 continue;
             }
 
-            //Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
+            Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
 
+            /*
             //!!! This needs to be tested with at least 5 players
             var roomListItem = Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>();
             roomListItem.SetUp(roomList[i]);
@@ -156,9 +157,10 @@ public class Launcher : MonoBehaviourPunCallbacks
             if (roomList[i].PlayerCount >= roomList[i].MaxPlayers)
             {
                 roomListItem.GetComponent<Button>().interactable = false;
-            }
-        }*/
+            }*/
+        }
 
+        /*
         // Loop through all rooms provided in the update
         foreach (RoomInfo roomInfo in roomList)
         {
@@ -181,7 +183,7 @@ public class Launcher : MonoBehaviourPunCallbacks
                 roomListItem.GetComponent<Button>().interactable = false;
                 Debug.Log($"Room {roomInfo.Name} is full, button disabled.");
             }
-        }
+        }*/
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
