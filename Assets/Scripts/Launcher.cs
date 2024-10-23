@@ -131,11 +131,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        /*
-        foreach (RoomInfo room in roomList)
-        {
-            Debug.Log($"Room: {room.Name}, Players: {room.PlayerCount}/{room.MaxPlayers}, Removed: {room.RemovedFromList}");
-        }*/
+        Debug.Log("Updating Room List. Total rooms in list: " + roomList.Count);
 
         foreach (Transform trans in roomListContent)
         {
@@ -164,25 +160,27 @@ public class Launcher : MonoBehaviourPunCallbacks
         }*/
 
         // Loop through all rooms provided in the update
-        foreach (RoomInfo room in roomList)
+        foreach (RoomInfo roomInfo in roomList)
         {
-            // Check if the room is removed or empty (0 players), then skip it
-            if (room.RemovedFromList || room.PlayerCount == 0)
+            Debug.Log($"Room: {roomInfo.Name}, Players: {roomInfo.PlayerCount}/{roomInfo.MaxPlayers}, Removed: {roomInfo.RemovedFromList}");
+
+            if (roomInfo.RemovedFromList)
             {
+                Debug.Log($"Room {roomInfo.Name} has been removed, skipping.");
                 continue;
             }
 
-            // Instantiate and set up the room list item
+            // Instantiate new room list item and log
             var roomListItem = Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>();
-            roomListItem.SetUp(room);
+            roomListItem.SetUp(roomInfo);
+            Debug.Log($"Room {roomInfo.Name} instantiated in list.");
 
             // Disable the button if the room is full
-            if (room.PlayerCount >= room.MaxPlayers)
+            if (roomInfo.PlayerCount >= roomInfo.MaxPlayers)
             {
                 roomListItem.GetComponent<Button>().interactable = false;
+                Debug.Log($"Room {roomInfo.Name} is full, button disabled.");
             }
-
-            Debug.Log($"Room: {room.Name}, Players: {room.PlayerCount}/{room.MaxPlayers}, Removed: {room.RemovedFromList}");
         }
     }
 
