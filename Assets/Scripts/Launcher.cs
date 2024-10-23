@@ -131,16 +131,18 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+        /*
         foreach (RoomInfo room in roomList)
         {
             Debug.Log($"Room: {room.Name}, Players: {room.PlayerCount}/{room.MaxPlayers}, Removed: {room.RemovedFromList}");
-        }
+        }*/
 
         foreach (Transform trans in roomListContent)
         {
             Destroy(trans.gameObject);
         }
 
+        /*
         for (int i = 0; i < roomList.Count; i++)
         {
             if (roomList[i].RemovedFromList)
@@ -159,6 +161,28 @@ public class Launcher : MonoBehaviourPunCallbacks
             {
                 roomListItem.GetComponent<Button>().interactable = false;
             }
+        }*/
+
+        // Loop through all rooms provided in the update
+        foreach (RoomInfo room in roomList)
+        {
+            // Check if the room is removed or empty (0 players), then skip it
+            if (room.RemovedFromList || room.PlayerCount == 0)
+            {
+                continue;
+            }
+
+            // Instantiate and set up the room list item
+            var roomListItem = Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>();
+            roomListItem.SetUp(room);
+
+            // Disable the button if the room is full
+            if (room.PlayerCount >= room.MaxPlayers)
+            {
+                roomListItem.GetComponent<Button>().interactable = false;
+            }
+
+            Debug.Log($"Room: {room.Name}, Players: {room.PlayerCount}/{room.MaxPlayers}, Removed: {room.RemovedFromList}");
         }
     }
 
