@@ -20,6 +20,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject playerListItemPrefab;
     [SerializeField] GameObject startGameButton;
 
+    private Dictionary<string, GameObject> existingRooms = new();
+
     private void Awake()
     {
         Instance = this;
@@ -57,14 +59,14 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             return;
         }
-        /*
+        
         //!!! This needs to be tested with at least 5 players
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 4;  // Set the room to allow a maximum of 4 players
 
         options.IsVisible = true;
         options.IsOpen = true;
-        */
+        
         PhotonNetwork.CreateRoom(roomNameInputField.text);
         MenuManager.Instance.OpenMenu("loading");
     }
@@ -131,8 +133,37 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        Debug.Log("Updating Room List. Total rooms in list: " + roomList.Count);
 
+        foreach (RoomInfo room in roomList)
+        {
+            // This "room" changed in some way
+            if (room.RemovedFromList)
+            {
+                // It was removed. Remove it from the menu.
+                if (existingRooms.ContainsKey(room.Name))
+                {
+                    Destroy(existingRooms[room.Name]);
+                    existingRooms.Remove(room.Name);
+                }
+            }
+            else
+            {
+                // It was added, or updated.
+                if (!existingRooms.TryGetValue(room.Name, out GameObject obj))
+                {
+                    // We don't have one yet. Create a new gameObject
+                    obj = Instantiate(roomListItemPrefab, roomListContent);
+                    obj.GetComponent<Button>().onClick.AddListener(delegate { PhotonNetwork.JoinRoom(room.Name); });
+
+                    existingRooms[room.Name] = obj;
+                }
+                // Update the text with the new values
+                obj.transform.Find("Name of Room").GetComponent<TextMeshProUGUI>().text = room.Name;
+                obj.transform.Find("players in room").GetComponent<TextMeshProUGUI>().text = room.PlayerCount + "/" + room.MaxPlayers;
+            }
+        }
+
+        /*
         foreach (Transform trans in roomListContent)
         {
             Destroy(trans.gameObject);
@@ -146,9 +177,11 @@ public class Launcher : MonoBehaviourPunCallbacks
                 continue;
             }
 
+            //roomList.Add(roomInfo);
+
             Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
 
-            /*
+            
             //!!! This needs to be tested with at least 5 players
             var roomListItem = Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>();
             roomListItem.SetUp(roomList[i]);
@@ -157,8 +190,8 @@ public class Launcher : MonoBehaviourPunCallbacks
             if (roomList[i].PlayerCount >= roomList[i].MaxPlayers)
             {
                 roomListItem.GetComponent<Button>().interactable = false;
-            }*/
-        }
+            }
+        }*/
 
         /*
         // Loop through all rooms provided in the update
@@ -169,8 +202,10 @@ public class Launcher : MonoBehaviourPunCallbacks
             if (roomInfo.RemovedFromList)
             {
                 Debug.Log($"Room {roomInfo.Name} has been removed, skipping.");
-                continue;
+                continue;   
             }
+
+            //roomList.Add(roomInfo);
 
             // Instantiate new room list item and log
             var roomListItem = Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>();
@@ -184,10 +219,17 @@ public class Launcher : MonoBehaviourPunCallbacks
                 Debug.Log($"Room {roomInfo.Name} is full, button disabled.");
             }
         }*/
+
+        Debug.Log("Updating Room List. Total rooms in list: " + roomList.Count);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(newPlayer);
+    }
+
+    public override void OnCreatedRoom()
+    {
+        base.OnCreatedRoom();
     }
 }
