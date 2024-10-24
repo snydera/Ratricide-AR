@@ -10,3 +10,51 @@ fix tracking/camera issues when player leaves game.
 
 
 
+@crxsh8300  Okay I think I found the solution for this one. I found it here: https://stackoverflow.com/questions/77772923/onroomlistupdate-callback-returns-inaccurate-list-of-rooms
+
+This solution bypasses the need to have the onClick event for your RoomListItem prefab. You will get an error if you leave it there. I also added a second TMP object to it as reflected in this solution. My TMP objects are named "Name of Room" and "players in room". I also included some logic that disables the button intractability if the room has reached max players, but I haven't tested that part yet. Here is how my OnRoomListUpdate method looks now:
+
+private Dictionary<string, GameObject> existingRooms = new();
+
+public override void OnRoomListUpdate(List<RoomInfo> roomList)
+{
+    Debug.Log("Updating Room List. Total rooms in list: " + roomList.Count);
+
+    foreach (RoomInfo room in roomList)
+    {
+
+        // This "room" changed in some way
+        if (room.RemovedFromList)
+        {
+            // It was removed. Remove it from the menu.
+            if (existingRooms.ContainsKey(room.Name))
+            {
+                Destroy(existingRooms[room.Name]);
+                existingRooms.Remove(room.Name);
+            }
+        }
+        else
+        {
+            // It was added, or updated.
+            if (!existingRooms.TryGetValue(room.Name, out GameObject obj))
+            {
+                // We don't have one yet. Create a new gameObject
+                obj = Instantiate(roomListItemPrefab, roomListContent);
+                obj.GetComponent<Button>().onClick.AddListener(delegate { PhotonNetwork.JoinRoom(room.Name); });
+
+                existingRooms[room.Name] = obj;
+            }
+            // Update the text with the new values
+            obj.transform.Find("Name of Room").GetComponent<TextMeshProUGUI>().text = room.Name;
+            obj.transform.Find("players in room").GetComponent<TextMeshProUGUI>().text = room.PlayerCount + "/" + room.MaxPlayers;
+
+            // Disable the button if the room is full
+            // !!! Need to test with at least 5 players
+            if (room.PlayerCount >= room.MaxPlayers)
+            {
+                obj.GetComponent<Button>().interactable = false;
+                Debug.Log($"Room {room.Name} is full, button disabled.");
+            }
+        }
+    }
+}

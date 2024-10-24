@@ -67,7 +67,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         options.IsVisible = true;
         options.IsOpen = true;
         
-        PhotonNetwork.CreateRoom(roomNameInputField.text);
+        PhotonNetwork.CreateRoom(roomNameInputField.text, options, null);
         MenuManager.Instance.OpenMenu("loading");
     }
 
@@ -133,11 +133,10 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+        Debug.Log("Updating Room List. Total rooms in list: " + roomList.Count);
 
         foreach (RoomInfo room in roomList)
         {
-            RoomOptions options = new RoomOptions();
-            options.MaxPlayers = 4;
 
             // This "room" changed in some way
             if (room.RemovedFromList)
@@ -173,65 +172,6 @@ public class Launcher : MonoBehaviourPunCallbacks
                 }
             }
         }
-
-        /*
-        foreach (Transform trans in roomListContent)
-        {
-            Destroy(trans.gameObject);
-        }
-
-        
-        for (int i = 0; i < roomList.Count; i++)
-        {
-            if (roomList[i].RemovedFromList)
-            {
-                continue;
-            }
-
-            //roomList.Add(roomInfo);
-
-            Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
-
-            
-            //!!! This needs to be tested with at least 5 players
-            var roomListItem = Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>();
-            roomListItem.SetUp(roomList[i]);
-
-            // Disable the button if the room is full
-            if (roomList[i].PlayerCount >= roomList[i].MaxPlayers)
-            {
-                roomListItem.GetComponent<Button>().interactable = false;
-            }
-        }*/
-
-        /*
-        // Loop through all rooms provided in the update
-        foreach (RoomInfo roomInfo in roomList)
-        {
-            Debug.Log($"Room: {roomInfo.Name}, Players: {roomInfo.PlayerCount}/{roomInfo.MaxPlayers}, Removed: {roomInfo.RemovedFromList}");
-
-            if (roomInfo.RemovedFromList)
-            {
-                Debug.Log($"Room {roomInfo.Name} has been removed, skipping.");
-                continue;   
-            }
-
-            //roomList.Add(roomInfo);
-
-            // Instantiate new room list item and log
-            var roomListItem = Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>();
-            roomListItem.SetUp(roomInfo);
-            Debug.Log($"Room {roomInfo.Name} instantiated in list.");
-
-            // Disable the button if the room is full
-            if (roomInfo.PlayerCount >= roomInfo.MaxPlayers)
-            {
-                roomListItem.GetComponent<Button>().interactable = false;
-                Debug.Log($"Room {roomInfo.Name} is full, button disabled.");
-            }
-        }*/
-
-        Debug.Log("Updating Room List. Total rooms in list: " + roomList.Count);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
