@@ -77,12 +77,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         Debug.Log($"{otherPlayer.NickName} has left the game.");
 
-        // Reset AR session for remaining players
-        if (PhotonNetwork.IsMasterClient)
-        {
-            arSession.Reset(); // Assuming ARSession is part of your XR setup
-                               // Re-enable TrackedPoseDriver if necessary
-        }
+        
     }
 
     public override void OnLeftRoom()

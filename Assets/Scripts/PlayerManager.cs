@@ -7,6 +7,8 @@ using Photon.Realtime;
 using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.ARCore;
+using UnityEngine.XR.ARFoundation;
 
 public class PlayerManager : MonoBehaviourPunCallbacks
 {
@@ -91,14 +93,24 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         
         if (PhotonNetwork.InRoom)
         {
-            if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount > 1) MigrateMaster();
+            if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount > 1)
+            {
+                MigrateMaster();
+                FindObjectOfType<ARSession>().Reset();
+            }
             else
             {
                 PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
-                
+
             }
 
             PhotonNetwork.LeaveRoom();
+        }
+        // Reset AR session for remaining players
+        if (PhotonNetwork.IsMasterClient)
+        {
+             // Assuming ARSession is part of your XR setup
+                               // Re-enable TrackedPoseDriver if necessary
         }
     }
 
