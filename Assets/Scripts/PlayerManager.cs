@@ -77,6 +77,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         if (PV.Owner == otherPlayer && controller != null)
         {
             PhotonNetwork.Destroy(controller); // Destroy the correct controller for the leaving player
+            FindObjectOfType<ARSession>().Reset();
         }
     }
 
@@ -100,7 +101,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             else
             {
                 PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
-                FindObjectOfType<ARSession>().Reset();
+                
 
             }
 
