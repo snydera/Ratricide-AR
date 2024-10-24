@@ -124,11 +124,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
             // Destroy and re-instantiate the controller
             PhotonNetwork.Destroy(playerManager.controller);
+            Debug.Log("Destroying players");
+            /*
             playerManager.CreateController();
 
             // Restore the player's state
             arPlayer = playerManager.controller.GetComponent<ARPlayer>();
             arPlayer.SetPlayerState(state);
+            */
         }
     }
 }
