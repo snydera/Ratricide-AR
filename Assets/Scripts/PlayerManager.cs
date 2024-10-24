@@ -95,11 +95,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount > 1)
             {
                 MigrateMaster();
-                FindObjectOfType<ARSession>().Reset();
+                
             }
             else
             {
                 PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
+                FindObjectOfType<ARSession>().Reset();
 
             }
 
