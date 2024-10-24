@@ -136,6 +136,9 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         foreach (RoomInfo room in roomList)
         {
+            RoomOptions options = new RoomOptions();
+            options.MaxPlayers = 4;
+
             // This "room" changed in some way
             if (room.RemovedFromList)
             {
@@ -160,6 +163,14 @@ public class Launcher : MonoBehaviourPunCallbacks
                 // Update the text with the new values
                 obj.transform.Find("Name of Room").GetComponent<TextMeshProUGUI>().text = room.Name;
                 obj.transform.Find("players in room").GetComponent<TextMeshProUGUI>().text = room.PlayerCount + "/" + room.MaxPlayers;
+
+                // Disable the button if the room is full
+                // !!! Need to test with at least 5 players
+                if (room.PlayerCount >= room.MaxPlayers)
+                {
+                    obj.GetComponent<Button>().interactable = false;
+                    Debug.Log($"Room {room.Name} is full, button disabled.");
+                }
             }
         }
 
