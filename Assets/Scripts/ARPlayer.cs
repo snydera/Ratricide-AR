@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.Playables;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
@@ -370,6 +371,33 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         Die();
     }
 
-    
-    
+    public PlayerState GetPlayerState()
+    {
+        return new PlayerState
+        {
+            position = transform.position,
+            rotation = transform.rotation,
+            health = currentHealth,
+            //ammo = items[itemIndex].GetAmmoCount() // Assuming GetAmmoCount exists in the item
+        };
+    }
+
+    public void SetPlayerState(PlayerState state)
+    {
+        transform.position = state.position;
+        transform.rotation = state.rotation;
+        currentHealth = state.health;
+        //items[itemIndex].SetAmmoCount(state.ammo); // Assuming SetAmmoCount exists in the item
+        healthbarImage.fillAmount = currentHealth / maxHealth;
+    }
+}
+
+// Define a PlayerState class to hold player state information
+[System.Serializable]
+public class PlayerState
+{
+    public Vector3 position;
+    public Quaternion rotation;
+    public float health;
+    public int ammo;  // Assuming the player has an ammo count
 }

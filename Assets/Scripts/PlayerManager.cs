@@ -77,41 +77,28 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         if (PV.Owner == otherPlayer && controller != null)
         {
             PhotonNetwork.Destroy(controller); // Destroy the correct controller for the leaving player
-            FindObjectOfType<ARSession>().Reset();
+
+
+            // Re-instantiate and restore state for remaining players
+            ReinstantiateRemainingPlayers();
         }
     }
 
     // Optionally handle when the local player (yourself) leaves the room
     public void LeaveGame()
-    {
-        /*
-        if (PV.IsMine)
-        {
-            PhotonNetwork.LeaveRoom();
-            //SceneManager.LoadScene(0); // Or whatever your lobby scene is
-        }*/
-        
+    {        
         if (PhotonNetwork.InRoom)
         {
             if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount > 1)
             {
-                MigrateMaster();
-                
+                MigrateMaster();                
             }
             else
             {
-                PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
-                
-
+                PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);                
             }
 
             PhotonNetwork.LeaveRoom();
-        }
-        // Reset AR session for remaining players
-        if (PhotonNetwork.IsMasterClient)
-        {
-             // Assuming ARSession is part of your XR setup
-                               // Re-enable TrackedPoseDriver if necessary
         }
     }
 
@@ -120,5 +107,28 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         var dict = PhotonNetwork.CurrentRoom.Players;
         if (PhotonNetwork.SetMasterClient(dict[dict.Count - 1]))
             PhotonNetwork.LeaveRoom();
+    }
+
+    private void ReinstantiateRemainingPlayers()
+    {
+        var remainingPlayers = PhotonNetwork.PlayerList;
+
+        foreach (var player in remainingPlayers)
+        {
+            // Find the PlayerManager for each remaining player
+            PlayerManager playerManager = Find(player);
+
+            // Get the current ARPlayer state
+            ARPlayer arPlayer = playerManager.controller.GetComponent<ARPlayer>();
+            PlayerState state = arPlayer.GetPlayerState();
+
+            // Destroy and re-instantiate the controller
+            PhotonNetwork.Destroy(playerManager.controller);
+            playerManager.CreateController();
+
+            // Restore the player's state
+            arPlayer = playerManager.controller.GetComponent<ARPlayer>();
+            arPlayer.SetPlayerState(state);
+        }
     }
 }
