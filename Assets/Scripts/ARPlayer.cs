@@ -117,13 +117,13 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             Die();
         }
 
-        
+        /*
         //!!! remove before build
         if (currentHealth <= 0)
         {
             anim.SetBool("isDead", true);
             StartCoroutine(DeathRoutine());
-        }
+        }*/
     }
 
     void OffsetCameraRotation()
@@ -369,5 +369,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
         Die();
     }
+
+    
     
 }

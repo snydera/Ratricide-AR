@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.ARFoundation;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
+    [SerializeField] ARSession arSession;
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Instance = this;
 
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        arSession = FindObjectOfType<ARSession>();
     }
         
 
@@ -73,6 +76,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log($"{otherPlayer.NickName} has left the game.");
+
+        // Reset AR session for remaining players
+        if (PhotonNetwork.IsMasterClient)
+        {
+            arSession.Reset(); // Assuming ARSession is part of your XR setup
+                               // Re-enable TrackedPoseDriver if necessary
+        }
     }
 
     public override void OnLeftRoom()
