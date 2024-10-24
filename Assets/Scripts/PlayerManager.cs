@@ -7,7 +7,6 @@ using Photon.Realtime;
 using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using UnityEngine.SceneManagement;
-using UnityEngine.XR.ARCore;
 using UnityEngine.XR.ARFoundation;
 
 public class PlayerManager : MonoBehaviourPunCallbacks
