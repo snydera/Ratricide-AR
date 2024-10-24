@@ -77,7 +77,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         Debug.Log($"{otherPlayer.NickName} has left the game.");
 
-        
+        // test change
     }
 
     public override void OnLeftRoom()
