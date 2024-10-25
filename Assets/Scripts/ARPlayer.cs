@@ -37,11 +37,11 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     [SerializeField] Item[] items;
 
-    int itemIndex = 1;
+    public int itemIndex = 1;
     int previousItemIndex = -1;
 
     const float maxHealth = 100f;
-    [SerializeField] float currentHealth = maxHealth;
+    public float currentHealth = maxHealth;
 
     PlayerManager playerManager;
 
@@ -261,7 +261,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     #endregion
 
 
-    void EquipItem(int _index)
+    public void EquipItem(int _index)
     {
         if (_index == previousItemIndex)
             return;
@@ -393,11 +393,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        float currentDamage = 100 - currentHealth;
-        int currentItemIndex = itemIndex;
         playerManager.Reinstantiate(transform.position, transform.rotation);
-        TakeDamage(currentDamage);
-        EquipItem(currentItemIndex);
     }
 }
 

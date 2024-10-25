@@ -8,6 +8,7 @@ using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.ARFoundation;
+using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
 
 public class PlayerManager : MonoBehaviourPunCallbacks
 {
@@ -56,8 +57,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         if (PV.IsMine)
         {
+            float currentDamage = 100 - controller.GetComponent<ARPlayer>().currentHealth;
+            int currentItemIndex = controller.GetComponent<ARPlayer>().itemIndex;
             PhotonNetwork.Destroy(controller);
             controller = PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "AR PlayerController"), position, rotation, 0, new object[] { PV.ViewID });
+            controller.GetComponent<ARPlayer>().TakeDamage(currentDamage);
+            controller.GetComponent<ARPlayer>().EquipItem(currentItemIndex);
+            
         }
         
     }
