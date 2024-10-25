@@ -393,7 +393,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        Die();
+        playerManager.Reinstantiate(transform.position, transform.rotation);
     }
 }
 

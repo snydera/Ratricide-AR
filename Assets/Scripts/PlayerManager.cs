@@ -52,6 +52,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
+    public void Reinstantiate(Vector3 position, Quaternion rotation)
+    {
+        PhotonNetwork.Destroy(controller);
+        controller = PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "AR PlayerController"), position, rotation, 0, new object[] { PV.ViewID });
+    }
+
     public void GetKill()
     {
         PV.RPC(nameof(RPC_GetKill), PV.Owner);
