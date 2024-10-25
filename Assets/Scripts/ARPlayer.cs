@@ -393,10 +393,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        if (PV.Owner == otherPlayer)
-        {
-            Die();
-        }
+        Die();
     }
 }
 
