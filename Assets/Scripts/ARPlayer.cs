@@ -390,6 +390,14 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         //items[itemIndex].SetAmmoCount(state.ammo); // Assuming SetAmmoCount exists in the item
         healthbarImage.fillAmount = currentHealth / maxHealth;
     }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        if (PV.Owner == otherPlayer)
+        {
+            Die();
+        }
+    }
 }
 
 // Define a PlayerState class to hold player state information

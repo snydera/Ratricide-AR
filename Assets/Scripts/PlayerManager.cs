@@ -100,7 +100,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);                
             }
 
-            ReinstantiateRemainingPlayers();
+            
             PhotonNetwork.LeaveRoom();
         }
     }
