@@ -74,13 +74,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        Debug.Log($"Player {otherPlayer.NickName} has left the room. PlayerManager");
+
         if (PV.Owner == otherPlayer && controller != null)
         {
             PhotonNetwork.Destroy(controller); // Destroy the correct controller for the leaving player
 
 
             // Re-instantiate and restore state for remaining players
-            ReinstantiateRemainingPlayers();
+            //ReinstantiateRemainingPlayers();
         }
     }
 
@@ -98,6 +100,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);                
             }
 
+            ReinstantiateRemainingPlayers();
             PhotonNetwork.LeaveRoom();
         }
     }
@@ -125,13 +128,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             // Destroy and re-instantiate the controller
             PhotonNetwork.Destroy(playerManager.controller);
             Debug.Log("Destroying players");
-            /*
+            
             playerManager.CreateController();
 
             // Restore the player's state
             arPlayer = playerManager.controller.GetComponent<ARPlayer>();
             arPlayer.SetPlayerState(state);
-            */
+            
         }
     }
 }
