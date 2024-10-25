@@ -121,30 +121,4 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.SetMasterClient(dict[dict.Count - 1]))
             PhotonNetwork.LeaveRoom();
     }
-
-    private void ReinstantiateRemainingPlayers()
-    {
-        var remainingPlayers = PhotonNetwork.PlayerList;
-
-        foreach (var player in remainingPlayers)
-        {
-            // Find the PlayerManager for each remaining player
-            PlayerManager playerManager = Find(player);
-
-            // Get the current ARPlayer state
-            ARPlayer arPlayer = playerManager.controller.GetComponent<ARPlayer>();
-            PlayerState state = arPlayer.GetPlayerState();
-
-            // Destroy and re-instantiate the controller
-            PhotonNetwork.Destroy(playerManager.controller);
-            Debug.Log("Destroying players");
-            
-            playerManager.CreateController();
-
-            // Restore the player's state
-            arPlayer = playerManager.controller.GetComponent<ARPlayer>();
-            arPlayer.SetPlayerState(state);
-            
-        }
-    }
 }

@@ -393,7 +393,11 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        float currentDamage = 100 - currentHealth;
+        int currentItemIndex = itemIndex;
         playerManager.Reinstantiate(transform.position, transform.rotation);
+        TakeDamage(currentDamage);
+        EquipItem(currentItemIndex);
     }
 }
 
