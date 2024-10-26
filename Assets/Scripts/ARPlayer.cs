@@ -367,6 +367,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     IEnumerator DeathRoutine()
     {
+        anim.SetBool("isDead", true);
         headMesh.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         canvas.transform.Find("Movement").gameObject.SetActive(false);
         canvas.transform.Find("Actions").gameObject.SetActive(false);
