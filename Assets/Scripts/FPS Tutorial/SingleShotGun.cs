@@ -40,5 +40,7 @@ public class SingleShotGun : Gun
             Destroy(bulletImpactObj, 10f);
             bulletImpactObj.transform.SetParent(colliders[0].transform);
         }
+
+        muzzleFlashPS.Play();
     }
 }

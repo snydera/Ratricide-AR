@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         if (PV.IsMine)
         {
             float currentDamage = 100 - controller.GetComponent<ARPlayer>().currentHealth;
-            int currentItemIndex = controller.GetComponent<ARPlayer>().itemIndex;
+            int currentItemIndex = (controller.GetComponent<ARPlayer>().itemIndex == 0) ? 1 : 0;
             PhotonNetwork.Destroy(controller);
             controller = PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "AR PlayerController"), position, rotation, 0, new object[] { PV.ViewID });
             controller.GetComponent<ARPlayer>().TakeDamage(currentDamage);
