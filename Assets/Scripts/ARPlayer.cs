@@ -346,7 +346,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         {
             if (!PV.IsMine)
             {
-                anim.SetBool("isDead", true);
+                //anim.SetBool("isDead", true);
 
             }
             StartCoroutine(DeathRoutine());
@@ -360,14 +360,15 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         OffsetCameraRotation();
         if (PV.IsMine)
         {
-            anim.SetBool("isDead", false);
+            //anim.SetBool("isDead", false);
         }
         
     }
 
     IEnumerator DeathRoutine()
     {
-        anim.SetBool("isDead", true);
+        //anim.SetBool("isDead", true);
+        anim.SetTrigger("Death");
         headMesh.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         canvas.transform.Find("Movement").gameObject.SetActive(false);
         canvas.transform.Find("Actions").gameObject.SetActive(false);

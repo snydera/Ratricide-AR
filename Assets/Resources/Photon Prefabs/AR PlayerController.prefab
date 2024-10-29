@@ -14329,6 +14329,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mouse
       objectReference: {fileID: 0}
+    - target: {fileID: 3503869972922839020, guid: 4799a312958056a4ab7d2c8d902d5cc0,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503869972922839020, guid: 4799a312958056a4ab7d2c8d902d5cc0,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3541065600914010933, guid: 4799a312958056a4ab7d2c8d902d5cc0,
         type: 3}
       propertyPath: m_Enabled
@@ -14393,6 +14403,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6350796563510862046}
+    - targetCorrespondingSourceObject: {fileID: -4030715818586970918, guid: 4799a312958056a4ab7d2c8d902d5cc0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3682943071415621915}
+    - targetCorrespondingSourceObject: {fileID: -4030715818586970918, guid: 4799a312958056a4ab7d2c8d902d5cc0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3972826399901512919}
   m_SourcePrefab: {fileID: 100100000, guid: 4799a312958056a4ab7d2c8d902d5cc0, type: 3}
 --- !u!95 &3247945787253962729 stripped
 Animator:
@@ -14406,6 +14424,41 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8969359380763839096}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &3682943071415621915
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3776714158233120418}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.18
+  m_Center: {x: 0.000025839232, y: 0.94, z: -0.04}
+--- !u!114 &3972826399901512919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3776714158233120418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b66b63b17b91d64d9c8d37d0beca8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageMultiplier: 2
+  player: {fileID: 1416197808488271432}
 --- !u!4 &7335303999074399664 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 4799a312958056a4ab7d2c8d902d5cc0,
@@ -14435,7 +14488,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.18
   m_Center: {x: 0, y: 0.94, z: -0.03}
@@ -14528,6 +14581,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: isDead
+  - Type: 9
+    SynchronizeType: 0
+    Name: Death
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
