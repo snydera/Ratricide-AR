@@ -359,6 +359,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     {
         //anim.SetBool("isDead", true);
         anim.SetTrigger("Death");
+        transform.Find("Graphics Offset").GetComponent<SyncToCameraYRotation>().enabled = false;
         headMesh.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         canvas.transform.Find("Movement").gameObject.SetActive(false);
         canvas.transform.Find("Actions").gameObject.SetActive(false);
