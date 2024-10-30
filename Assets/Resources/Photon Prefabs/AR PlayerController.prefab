@@ -13594,6 +13594,7 @@ MonoBehaviour:
   turnSpeed: 5
   gyroCamera: {fileID: 3918730323737211216}
   headMesh: {fileID: 3776714158233120418}
+  headCollider: {fileID: 1675218381464369870}
   healthbarImage: {fileID: 8841577591172431799}
   items:
   - {fileID: 8592380378655839371}
@@ -14442,7 +14443,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.25
-  m_Center: {x: 0, y: 0.21, z: 0}
+  m_Center: {x: 0, y: 0.22, z: -0.01}
 --- !u!114 &2368058155149870543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14614,7 +14615,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: isDead
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Death
   m_SynchronizeLayers:
   - SynchronizeType: 1

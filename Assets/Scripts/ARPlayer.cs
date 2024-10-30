@@ -32,6 +32,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     
     //[SerializeField] Renderer headRenderer;
     [SerializeField] GameObject headMesh;
+    [SerializeField] Collider headCollider;
 
     [SerializeField] Image healthbarImage;
 
@@ -378,6 +379,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         canvas.transform.Find("Movement").gameObject.SetActive(false);
         canvas.transform.Find("Actions").gameObject.SetActive(false);
         GetComponent<CapsuleCollider>().enabled = false;
+        headCollider.enabled = false;
 
         yield return new WaitForSeconds(4);
 

@@ -1,13 +1,13 @@
 Ratricide
 
-fix username billboard issue
-
-remove player collision on death and re-enable on respawn.
+Dont forget to make any new animation parameters discrete in the photon animator view
 
 Fix players spawning in the same spot
 
-fix tracking/camera issues when player leaves game.
 
+
+
+Received RPC "UpdateRotation" for viewID 5002 but this PhotonView does not exist! Was remote PV. Owner called. By: #05 'iPad' Maybe GO was destroyed but RPC not cleaned up.
 
 
 @crxsh8300  Okay I think I found the solution for this one. I found it here: https://stackoverflow.com/questions/77772923/onroomlistupdate-callback-returns-inaccurate-list-of-rooms
