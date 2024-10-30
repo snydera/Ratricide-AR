@@ -347,7 +347,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             if (!PV.IsMine)
             {
                 //anim.SetBool("isDead", true);
-
+                anim.SetTrigger("Death");
             }
             StartCoroutine(DeathRoutine());
             PlayerManager.Find(info.Sender).GetKill();

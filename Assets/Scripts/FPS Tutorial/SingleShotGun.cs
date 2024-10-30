@@ -23,10 +23,32 @@ public class SingleShotGun : Gun
     {
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
         ray.origin = cam.transform.position;
+
+        /*
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
             PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
+        }*/
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            // Check if the hit object has a PhotonView
+            PhotonView hitPV = hit.collider.gameObject.GetComponent<PhotonView>();
+
+            // Only allow shooting if the hit object is not the shooter (comparing PhotonView IDs)
+            if (hitPV != null && hitPV.ViewID != PV.ViewID)
+            {
+                // Apply damage if the object implements IDamageable
+                hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
+
+                // RPC call to handle the bullet impact on all clients
+                PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
+            }
+            else
+            {
+                Debug.Log("Shot blocked: cannot shoot yourself.");
+            }
         }
     }
 
