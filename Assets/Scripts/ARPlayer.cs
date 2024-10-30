@@ -25,7 +25,6 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     public Transform gyroCamera;
 
-    TrackedPoseDriver trackedPoseDriver;
     Rigidbody rb;
     PhotonView PV;
     Canvas canvas;
@@ -62,10 +61,9 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         {
             gyroCamera.GetComponent<Camera>().enabled = true;
 
-            //trackedPoseDriver.enabled = true;
-            //headRenderer.enabled = false;
             //headMesh.layer = 7;
             headMesh.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+            headCollider.enabled = false;
             
             
             /*
@@ -81,20 +79,6 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             Destroy(canvas.gameObject);
 
             Destroy(gyroCamera.gameObject);
-            /*
-            gyroCamera.GetComponent<Camera>().enabled = false;
-            Destroy(gyroCamera.GetComponent<Camera>());
-            Destroy(gyroCamera.GetComponent<AudioListener>());
-            Destroy(gyroCamera.GetComponent<ARCameraManager>());
-            Destroy(gyroCamera.GetComponent<ARCameraBackground>());
-            Destroy(gyroCamera.GetComponent<PostProcessLayer>());
-            */
-            
-            /*
-            if (trackedPoseDriver != null)
-            {
-                trackedPoseDriver.enabled = false;
-            }*/
 
             Destroy(rb);
         }

@@ -6255,6 +6255,7 @@ MonoBehaviour:
     type: 3}
   muzzleFlashPS: {fileID: 2448515965824546348}
   cam: {fileID: 4278676756974592045}
+  bodyCollider: {fileID: 5769079547790609168}
 --- !u!114 &7457078278327631043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6802,6 +6803,7 @@ MonoBehaviour:
     type: 3}
   muzzleFlashPS: {fileID: 5413015834032949468}
   cam: {fileID: 4278676756974592045}
+  bodyCollider: {fileID: 5769079547790609168}
 --- !u!114 &3635495203761586411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14391,14 +14393,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4799a312958056a4ab7d2c8d902d5cc0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4269097871472345794}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4799a312958056a4ab7d2c8d902d5cc0,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2295782979928965719}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4799a312958056a4ab7d2c8d902d5cc0,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1615055244724279028}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4799a312958056a4ab7d2c8d902d5cc0,
         type: 3}
@@ -14504,54 +14498,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8969359380763839096}
   m_PrefabAsset: {fileID: 0}
---- !u!135 &4269097871472345794
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8122515724296140585}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.18
-  m_Center: {x: 0, y: 0.94, z: -0.03}
---- !u!54 &2295782979928965719
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8122515724296140585}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 94
-  m_CollisionDetection: 2
 --- !u!114 &1615055244724279028
 MonoBehaviour:
   m_ObjectHideFlags: 0

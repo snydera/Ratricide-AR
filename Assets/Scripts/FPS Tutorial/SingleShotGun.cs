@@ -9,6 +9,8 @@ public class SingleShotGun : Gun
 
     PhotonView PV;
 
+    [SerializeField] Collider bodyCollider;
+
     private void Awake()
     {
         PV = GetComponent<PhotonView>();
@@ -31,6 +33,7 @@ public class SingleShotGun : Gun
             PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
         }*/
 
+        /*
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             // Check if the hit object has a PhotonView
@@ -38,6 +41,24 @@ public class SingleShotGun : Gun
 
             // Only allow shooting if the hit object is not the shooter (comparing PhotonView IDs)
             if (hitPV != null && hitPV.ViewID != PV.ViewID)
+            {
+                // Apply damage if the object implements IDamageable
+                hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
+
+                // RPC call to handle the bullet impact on all clients
+                PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
+            }
+            else
+            {
+                Debug.Log("Shot blocked: cannot shoot yourself.");
+            }
+        }*/
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            
+            // Only allow shooting if the hit object is not the shooter (comparing PhotonView IDs)
+            if (hit.collider != bodyCollider)
             {
                 // Apply damage if the object implements IDamageable
                 hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
