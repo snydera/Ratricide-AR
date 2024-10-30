@@ -347,9 +347,14 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             if (!PV.IsMine)
             {
                 //anim.SetBool("isDead", true);
-                anim.SetTrigger("Death");
+                //anim.SetTrigger("Death");
+
             }
-            StartCoroutine(DeathRoutine());
+            else
+            {
+                StartCoroutine(DeathRoutine());
+            }
+            
             PlayerManager.Find(info.Sender).GetKill();
         }
     }
@@ -368,7 +373,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     IEnumerator DeathRoutine()
     {
         //anim.SetBool("isDead", true);
-        //anim.SetTrigger("Death");
+        anim.SetTrigger("Death");
         headMesh.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         canvas.transform.Find("Movement").gameObject.SetActive(false);
         canvas.transform.Find("Actions").gameObject.SetActive(false);
