@@ -47,6 +47,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     [SerializeField] Animator anim;
 
+    [SerializeField] Transform aimTarget;
+
     private void Awake()
     {
         //trackedPoseDriver = gyroCamera.GetComponent<TrackedPoseDriver>();
@@ -261,6 +263,11 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             items[previousItemIndex].itemGameObject.SetActive(false);
         }
 
+        if (aimTarget != null)
+        {
+            aimTarget.position = new Vector3(aimTarget.position.x, itemIndex == 1 ? 0 : -1, aimTarget.position.z);
+        }
+
         previousItemIndex = itemIndex;
 
         if (PV.IsMine)
@@ -278,6 +285,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
         // Equip the item based on the updated itemIndex
         EquipItem(itemIndex);
+
+
         if (PV.IsMine)
         {
             anim.SetInteger("ItemIndex", itemIndex);
