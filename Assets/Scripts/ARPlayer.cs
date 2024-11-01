@@ -263,7 +263,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             items[previousItemIndex].itemGameObject.SetActive(false);
         }
 
-        if (aimTarget != null)
+        if (aimTarget != null && PV.IsMine)
         {
             aimTarget.position = new Vector3(aimTarget.position.x, itemIndex == 1 ? 0 : -1, aimTarget.position.z);
         }
