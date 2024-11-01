@@ -10,7 +10,7 @@ public class SyncToCameraXRotation : MonoBehaviour
 
     private void Awake()
     {
-        PV = transform.parent.GetComponent<PhotonView>();
+        PV = transform.parent.parent.GetComponent<PhotonView>();
 
         if (PV.IsMine)
         {
@@ -27,6 +27,7 @@ public class SyncToCameraXRotation : MonoBehaviour
             // Sync the Y rotation of the model with the camera's Y rotation
             Vector3 currentRotation = transform.rotation.eulerAngles;
             currentRotation.x = camTransform.rotation.eulerAngles.x;
+            currentRotation.z = camTransform.rotation.eulerAngles.z;
             transform.rotation = Quaternion.Euler(currentRotation);
         }
 
