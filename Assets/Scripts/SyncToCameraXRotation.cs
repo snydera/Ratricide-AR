@@ -10,7 +10,7 @@ public class SyncToCameraXRotation : MonoBehaviour
 
     private void Awake()
     {
-        PV = transform.parent.parent.GetComponent<PhotonView>();
+        PV = transform.parent.GetComponent<PhotonView>();
 
         if (PV.IsMine)
         {
