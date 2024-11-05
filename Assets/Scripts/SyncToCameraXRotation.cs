@@ -31,12 +31,14 @@ public class SyncToCameraXRotation : MonoBehaviour
 
         }*/
 
-        // Sync Y rotation with Tracking object for Aim Target Origin
+        if (camTransform == null || aimTarget == null) return;
+
+        // Sync Y rotation of Aim Target Origin with camTransform
         Vector3 originRotation = transform.localRotation.eulerAngles;
         originRotation.y = camTransform.localRotation.eulerAngles.y;
         transform.localRotation = Quaternion.Euler(originRotation);
 
-        // Sync X rotation for Aim Target itself
+        // Sync X rotation of aimTarget with camTransform
         Vector3 aimTargetRotation = aimTarget.localRotation.eulerAngles;
         aimTargetRotation.x = camTransform.localRotation.eulerAngles.x;
         aimTarget.localRotation = Quaternion.Euler(aimTargetRotation);
