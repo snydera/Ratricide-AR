@@ -16,6 +16,7 @@ public class SyncToCameraXRotation : MonoBehaviour
         {
             //camTransform = transform.parent.transform.Find("Camera Offset").Find("Main Camera").transform;
             //camTransform = transform.parent.transform.Find("Tracking").transform;
+            //camTransform = transform.parent.transform.Find("Camera Offset/Tracking");
         }
     }
 
@@ -25,10 +26,10 @@ public class SyncToCameraXRotation : MonoBehaviour
         if (PV.IsMine)
         {
             // Sync the Y rotation of the model with the camera's Y rotation
-            Vector3 currentRotation = transform.rotation.eulerAngles;
-            currentRotation.x = camTransform.rotation.eulerAngles.x;
-            currentRotation.z = camTransform.rotation.eulerAngles.z;
-            transform.rotation = Quaternion.Euler(currentRotation);
+            Vector3 currentLocalRotation = transform.localRotation.eulerAngles;
+            currentLocalRotation.x = camTransform.localRotation.eulerAngles.x;
+            //currentRotation.z = camTransform.rotation.eulerAngles.z;
+            transform.localRotation = Quaternion.Euler(currentLocalRotation);
         }
 
     }

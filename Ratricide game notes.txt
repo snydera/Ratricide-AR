@@ -4,7 +4,7 @@ Dont forget to make any new animation parameters discrete in the photon animator
 
 Fix players spawning in the same spot
 
-
+Add minimap
 
 
 Received RPC "UpdateRotation" for viewID 5002 but this PhotonView does not exist! Was remote PV. Owner called. By: #05 'iPad' Maybe GO was destroyed but RPC not cleaned up.
@@ -58,3 +58,22 @@ public override void OnRoomListUpdate(List<RoomInfo> roomList)
         }
     }
 }
+
+
+
+Technergetics
+
+Emily Carlson
+
+I see that Technergetics makes technology in support of the Department of Defense. Does the AR/VR team develop exclusively for them or are there additional private clients?
+
+What is the size of the team?
+
+What kind of software is currently in development?
+
+What hardware is required for this position and does Technergetics supply development machines?
+
+Can you tell me who I might be speaking with in continuing the interview process? Is there anything you can tell me that might help me prepare?
+
+mobile logistics portfolio
+Andrew Docherty
