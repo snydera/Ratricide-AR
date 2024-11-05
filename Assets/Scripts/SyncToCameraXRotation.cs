@@ -6,6 +6,7 @@ using UnityEngine;
 public class SyncToCameraXRotation : MonoBehaviour
 {
     [SerializeField] Transform camTransform;
+    [SerializeField] Transform aimTarget;
     PhotonView PV;
 
     private void Awake()
@@ -16,7 +17,7 @@ public class SyncToCameraXRotation : MonoBehaviour
         {
             //camTransform = transform.parent.transform.Find("Camera Offset").Find("Main Camera").transform;
             //camTransform = transform.parent.transform.Find("Tracking").transform;
-            //camTransform = transform.parent.transform.Find("Camera Offset/Tracking");
+            camTransform = transform.parent;
         }
     }
 
@@ -25,11 +26,23 @@ public class SyncToCameraXRotation : MonoBehaviour
     {
         if (PV.IsMine)
         {
+            /*
             // Sync the Y rotation of the model with the camera's Y rotation
             Vector3 currentLocalRotation = transform.localRotation.eulerAngles;
             currentLocalRotation.x = camTransform.localRotation.eulerAngles.x;
             //currentRotation.z = camTransform.rotation.eulerAngles.z;
             transform.localRotation = Quaternion.Euler(currentLocalRotation);
+            */
+
+            // Sync Y rotation with Tracking object for Aim Target Origin
+            Vector3 originRotation = transform.localRotation.eulerAngles;
+            originRotation.y = camTransform.localRotation.eulerAngles.y;
+            transform.localRotation = Quaternion.Euler(originRotation);
+
+            // Sync X rotation for Aim Target itself
+            Vector3 aimTargetRotation = aimTarget.localRotation.eulerAngles;
+            aimTargetRotation.x = camTransform.localRotation.eulerAngles.x;
+            aimTarget.localRotation = Quaternion.Euler(aimTargetRotation);
         }
 
     }
