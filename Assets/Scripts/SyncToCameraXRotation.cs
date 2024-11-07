@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class SyncToCameraXRotation : MonoBehaviour
 {
@@ -9,9 +10,11 @@ public class SyncToCameraXRotation : MonoBehaviour
     [SerializeField] Transform aimTarget;
     [SerializeField] PhotonView PV;
 
+
     private void Awake()
     {
         //PV = transform.parent.parent.GetComponent<PhotonView>();
+        
     }
 
     // Update is called once per frame
