@@ -71,6 +71,8 @@ public class SingleShotGun : Gun
                 Debug.Log("Shot blocked: cannot shoot yourself.");
             }
         }
+
+        muzzleFlashPS.Play();
     }
 
     [PunRPC]
@@ -84,6 +86,6 @@ public class SingleShotGun : Gun
             bulletImpactObj.transform.SetParent(colliders[0].transform);
         }
 
-        muzzleFlashPS.Play();
+        
     }
 }

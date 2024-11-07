@@ -6680,6 +6680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4515507681977753492}
+  - component: {fileID: 70768811543345041}
   m_Layer: 0
   m_Name: Camera Offset
   m_TagString: Untagged
@@ -6703,6 +6704,19 @@ Transform:
   - {fileID: 6590703828808395416}
   m_Father: {fileID: 3914646128972028649}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &70768811543345041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2691991314207606331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74baa69409cd66248a614e48bce70e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headBone: {fileID: 3287552272460381968}
 --- !u!1 &2781406090182744848
 GameObject:
   m_ObjectHideFlags: 0
@@ -13965,7 +13979,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7736581998876442643}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
   m_Name: 
@@ -14708,7 +14722,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4799a312958056a4ab7d2c8d902d5cc0,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9396927
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4799a312958056a4ab7d2c8d902d5cc0,
         type: 3}
@@ -14718,7 +14732,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4799a312958056a4ab7d2c8d902d5cc0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.3420201
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4799a312958056a4ab7d2c8d902d5cc0,
         type: 3}
@@ -14733,7 +14747,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4799a312958056a4ab7d2c8d902d5cc0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4799a312958056a4ab7d2c8d902d5cc0,
         type: 3}
@@ -15361,6 +15375,8 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 6350796563510862046}
+  - {fileID: 6903852497484708320}
+  - {fileID: 8132856203342688786}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
