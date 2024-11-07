@@ -83,6 +83,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             Destroy(gyroCamera.gameObject);
 
             Destroy(rb);
+
+            Destroy(aimTarget.parent.gameObject);
         }
 
         OffsetCameraRotation();

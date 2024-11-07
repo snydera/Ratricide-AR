@@ -43,7 +43,10 @@ public class SyncToCameraXRotation : MonoBehaviour
         aimTargetRotation.x = camTransform.localRotation.eulerAngles.x;
         aimTarget.localRotation = Quaternion.Euler(aimTargetRotation);*/
 
-        transform.rotation = camTransform.rotation;
+        if (PV.IsMine)
+        {
+            transform.rotation = camTransform.rotation;
+        }
 
     }
 }
