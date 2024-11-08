@@ -47,7 +47,9 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     [SerializeField] Animator anim;
 
-    [SerializeField] Transform aimTarget;
+    [SerializeField] Transform aimTargetOrigin;
+
+    [SerializeField] GameObject playerBones;
 
     private void Awake()
     {
@@ -84,7 +86,9 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
             Destroy(rb);
 
-            Destroy(aimTarget.parent.gameObject);
+            Destroy(aimTargetOrigin.gameObject);
+
+            Destroy(playerBones);
         }
 
         OffsetCameraRotation();
@@ -265,9 +269,9 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             items[previousItemIndex].itemGameObject.SetActive(false);
         }
 
-        if (aimTarget != null && PV.IsMine)
-        {
-            aimTarget.position = new Vector3(aimTarget.position.x, itemIndex == 1 ? 0 : -1, aimTarget.position.z);
+        if (aimTargetOrigin != null && PV.IsMine)
+        {           
+            aimTargetOrigin.position = new Vector3(aimTargetOrigin.position.x, itemIndex == 1 ? .55f : -.45f, aimTargetOrigin.position.z);
         }
 
         previousItemIndex = itemIndex;
