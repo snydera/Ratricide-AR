@@ -8036,6 +8036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camTransform: {fileID: 6590703828808395416}
+  aimTarget: {fileID: 7643814469400648628}
 --- !u!1 &5345452505512808395
 GameObject:
   m_ObjectHideFlags: 0

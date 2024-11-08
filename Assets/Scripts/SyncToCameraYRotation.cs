@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class SyncToCameraYRotation : MonoBehaviour
 {
     [SerializeField] Transform camTransform;
+    [SerializeField] Transform aimTarget;
     PhotonView PV;
 
     private void Awake()
@@ -28,6 +29,11 @@ public class SyncToCameraYRotation : MonoBehaviour
             RigBuilder rigs = GetComponentInChildren<RigBuilder>();
             rigs.Build();
         }
+        else
+        {
+            // Disable Aim Target for remote players
+            aimTarget.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -39,7 +45,18 @@ public class SyncToCameraYRotation : MonoBehaviour
             Vector3 currentRotation = transform.rotation.eulerAngles;
             currentRotation.y = camTransform.rotation.eulerAngles.y;
             transform.rotation = Quaternion.Euler(currentRotation);
+
+            // Sync Aim Target position and rotation over network
+            PV.RPC("SyncAimTargetTransform", RpcTarget.Others, aimTarget.position, aimTarget.rotation);
         }
         
+    }
+
+    // RPC to update Aim Target position and rotation for remote players
+    [PunRPC]
+    private void SyncAimTargetTransform(Vector3 position, Quaternion rotation)
+    {
+        aimTarget.position = position;
+        aimTarget.rotation = rotation;
     }
 }
