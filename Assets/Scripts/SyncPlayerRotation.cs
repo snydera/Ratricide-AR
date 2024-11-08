@@ -18,25 +18,35 @@ public class SyncPlayerRotation : MonoBehaviourPun
             // Send the local player's camera rotation to the network
             //photonView.RPC("UpdateRotation", RpcTarget.Others, cameraTransform.rotation);
             photonView.RPC("UpdateRotation", RpcTarget.Others, modelTransform.rotation);
-            photonView.RPC("UpdateConstraintTransforms", RpcTarget.Others, spineTransform, spineTransform.position, spineTransform.rotation);
-            photonView.RPC("UpdateConstraintTransforms", RpcTarget.Others, upperChestTransform, upperChestTransform.position, upperChestTransform.rotation);
-            photonView.RPC("UpdateConstraintTransforms", RpcTarget.Others, headTransform, headTransform.position, headTransform.rotation);
+
+            // Send each constrained bone's position and rotation
+            photonView.RPC("UpdateConstraintTransforms", RpcTarget.Others, "spine", spineTransform.position, spineTransform.rotation);
+            photonView.RPC("UpdateConstraintTransforms", RpcTarget.Others, "upperChest", upperChestTransform.position, upperChestTransform.rotation);
+            photonView.RPC("UpdateConstraintTransforms", RpcTarget.Others, "head", headTransform.position, headTransform.rotation); ;
         }
     }
 
     [PunRPC]
     void UpdateRotation(Quaternion newRotation)
     {
-        // Apply the received rotation to the camera
-        //cameraTransform.rotation = newRotation;
         modelTransform.rotation = newRotation;
     }
 
     [PunRPC]
-    void UpdateConstraintTransforms(Transform constrainedTransform, Vector3 newPosition, Quaternion newRotation)
+    void UpdateConstraintTransforms(string boneName, Vector3 newPosition, Quaternion newRotation)
     {
-        constrainedTransform.position = newPosition;
-        constrainedTransform.rotation = newRotation;
+        // Identify the bone by name and update its position and rotation
+        Transform targetTransform = null;
+
+        if (boneName == "spine") targetTransform = spineTransform;
+        else if (boneName == "upperChest") targetTransform = upperChestTransform;
+        else if (boneName == "head") targetTransform = headTransform;
+
+        if (targetTransform != null)
+        {
+            targetTransform.position = newPosition;
+            targetTransform.rotation = newRotation;
+        }
     }
 
     //Received RPC "UpdateRotation" for viewID 4002 but this PhotonView does not exist! Was remote PV. Owner called.
