@@ -47,7 +47,7 @@ public class SyncToCameraYRotation : MonoBehaviour
             transform.rotation = Quaternion.Euler(currentRotation);
 
             // Sync Aim Target position and rotation over network
-            PV.RPC("SyncAimTargetTransform", RpcTarget.Others, aimTarget.position, aimTarget.rotation);
+            PV.RPC("SyncAimTargetTransform", RpcTarget.OthersBuffered, aimTarget.position, aimTarget.rotation);
         }
         
     }
