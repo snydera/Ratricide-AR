@@ -46,6 +46,7 @@ MonoBehaviour:
   - RPC_SetMazeSeed
   - ReceiveHeartbeat
   - SyncAimTargetTransform
+  - UpdateConstraintTransforms
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
