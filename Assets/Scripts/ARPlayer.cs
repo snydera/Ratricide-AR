@@ -86,7 +86,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
             Destroy(rb);
 
-            Destroy(aimTargetOrigin.gameObject);
+            //Destroy(aimTargetOrigin.gameObject);
 
         }
 
