@@ -88,7 +88,6 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
             Destroy(aimTargetOrigin.gameObject);
 
-            Destroy(playerBones);
         }
 
         OffsetCameraRotation();
