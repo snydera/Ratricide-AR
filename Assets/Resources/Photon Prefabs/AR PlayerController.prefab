@@ -14883,10 +14883,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4799a312958056a4ab7d2c8d902d5cc0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1615055244724279028}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4799a312958056a4ab7d2c8d902d5cc0,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6350796563510862046}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4799a312958056a4ab7d2c8d902d5cc0,
         type: 3}
@@ -15342,32 +15338,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8969359380763839096}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1615055244724279028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8122515724296140585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 6350796563510862046}
-  - {fileID: 5542498464601762299}
-  - {fileID: 2613769411304712410}
-  - {fileID: 5179097226447038303}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &6350796563510862046
 MonoBehaviour:
   m_ObjectHideFlags: 0
