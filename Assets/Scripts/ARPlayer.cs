@@ -24,6 +24,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
     public float turnSpeed = 5f;
 
     public Transform gyroCamera;
+    [SerializeField] GameObject miniMapCamera;
 
     Rigidbody rb;
     PhotonView PV;
@@ -85,6 +86,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             Destroy(gyroCamera.gameObject);
 
             Destroy(rb);
+
+            Destroy(miniMapCamera);
 
             //Destroy(aimTargetOrigin.gameObject);
 

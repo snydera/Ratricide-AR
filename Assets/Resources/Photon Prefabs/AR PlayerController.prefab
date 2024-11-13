@@ -14629,6 +14629,7 @@ MonoBehaviour:
   moveSpeed: 10
   turnSpeed: 5
   gyroCamera: {fileID: 3918730323737211216}
+  miniMapCamera: {fileID: 8579417285654434826}
   headMesh: {fileID: 3776714158233120418}
   headCollider: {fileID: 1675218381464369870}
   healthbarImage: {fileID: 8841577591172431799}
@@ -15214,7 +15215,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1073741943
+    m_Bits: 1073742199
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

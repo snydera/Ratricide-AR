@@ -9,8 +9,9 @@ public class Billboard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cam == null)   
-            cam = FindAnyObjectByType<Camera>();
+        if (cam == null)
+            //cam = FindAnyObjectByType<Camera>();
+            cam = FindFirstObjectByType<Camera>();
 
         if (cam == null )
             return;
