@@ -10,10 +10,15 @@ public class Billboard : MonoBehaviour
     {
         if (cam == null)
             //cam = FindAnyObjectByType<Camera>();
-            cam = FindFirstObjectByType<Camera>();
+            //cam = FindFirstObjectByType<Camera>();
+            cam = Camera.main;
+        
+                
 
         if (cam == null)
             return;
+
+        
     }
 
     // Update is called once per frame
