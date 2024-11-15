@@ -6,6 +6,8 @@ Fix players spawning in the same spot
 
 Add minimap
 
+Fix IK animations not showing up for remote player.
+
 
 Received RPC "UpdateRotation" for viewID 5002 but this PhotonView does not exist! Was remote PV. Owner called. By: #05 'iPad' Maybe GO was destroyed but RPC not cleaned up.
 
@@ -77,3 +79,6 @@ Can you tell me who I might be speaking with in continuing the interview process
 
 mobile logistics portfolio
 Andrew Docherty
+
+800-247-8000 x2251
+1800-672-3343

@@ -69,7 +69,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             //headMesh.layer = 7;
             headMesh.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
             headCollider.enabled = false;
-            
+            miniMapCamera.SetActive(true);
             
             /*
             // Randomize the spawn position to avoid overlapping

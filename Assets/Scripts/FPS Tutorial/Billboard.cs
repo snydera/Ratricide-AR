@@ -6,15 +6,20 @@ public class Billboard : MonoBehaviour
 {
     Camera cam;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
         if (cam == null)
             //cam = FindAnyObjectByType<Camera>();
             cam = FindFirstObjectByType<Camera>();
 
-        if (cam == null )
+        if (cam == null)
             return;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
 
 
         transform.LookAt(cam.transform);
