@@ -357,9 +357,10 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
             }
             else
             {
-                StartCoroutine(DeathRoutine());
             }
             
+            StartCoroutine(DeathRoutine());
+
             PlayerManager.Find(info.Sender).GetKill();
         }
     }
