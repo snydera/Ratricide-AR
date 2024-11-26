@@ -401,7 +401,7 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         yield return new WaitForSeconds(2);
 
         Die();
-        Destroy(arm);
+        PhotonNetwork.Destroy(arm);
     }
 
     public void ArmGrabsPlayer()
