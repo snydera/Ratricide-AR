@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.Playables;
@@ -388,7 +389,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
        
         yield return new WaitForSeconds(3);
 
-        GameObject arm = Instantiate(armPrefab, new Vector3(transform.position.x + -3.7f, transform.position.y, transform.position.z - 18.15f), Quaternion.identity);
+        //GameObject arm = Instantiate(armPrefab, new Vector3(transform.position.x + -3.7f, transform.position.y, transform.position.z - 18.15f), Quaternion.identity);
+        GameObject arm = PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "Arm Origin"), new Vector3(transform.position.x + -3.7f, transform.position.y, transform.position.z - 18.15f), Quaternion.identity);
         Transform grabPoint = arm.transform.Find("Arm").Find("Root").Find("Bicep.R").Find("Forearm.R").Find("Palm.R").Find("Grab point").transform;
 
         yield return new WaitForSeconds(1.8f);
