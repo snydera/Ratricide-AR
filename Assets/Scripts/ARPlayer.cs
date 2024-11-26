@@ -396,7 +396,11 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
         yield return new WaitForSeconds(1.8f);
 
-        transform.parent = grabPoint;
+        if (PV.IsMine)
+        {
+            transform.parent = grabPoint;
+        }
+        
 
         yield return new WaitForSeconds(2);
 
