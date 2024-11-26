@@ -52,6 +52,8 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
 
     [SerializeField] GameObject playerBones;
 
+    [SerializeField] GameObject armPrefab;
+
     private void Awake()
     {
         //trackedPoseDriver = gyroCamera.GetComponent<TrackedPoseDriver>();
@@ -383,9 +385,26 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         GetComponent<CapsuleCollider>().enabled = false;
         headCollider.enabled = false;
 
-        yield return new WaitForSeconds(4);
+       
+        yield return new WaitForSeconds(3);
+
+        GameObject arm = Instantiate(armPrefab, new Vector3(transform.position.x + -3.7f, transform.position.y, transform.position.z - 18.15f), Quaternion.identity);
+        Transform grabPoint = arm.transform.Find("Arm").Find("Root").Find("Bicep.R").Find("Forearm.R").Find("Palm.R").Find("Grab point").transform;
+
+        yield return new WaitForSeconds(1.8f);
+
+        transform.parent = grabPoint;
+
+        yield return new WaitForSeconds(2);
 
         Die();
+        Destroy(arm);
+    }
+
+    public void ArmGrabsPlayer()
+    {
+        //Instantiate(armPrefab, new Vector3(transform.position.x + 0.15f, transform.position.y, transform.position.z + 0.65f), Quaternion.identity);
+        //Instantiate(armPrefab, new Vector3(transform.position.x + -3.7f, transform.position.y, transform.position.z - 16), Quaternion.identity);
     }
 
     public PlayerState GetPlayerState()
