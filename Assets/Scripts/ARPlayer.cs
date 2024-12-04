@@ -391,21 +391,31 @@ public class ARPlayer : MonoBehaviourPunCallbacks, IDamageable
         yield return new WaitForSeconds(3);
 
         //GameObject arm = Instantiate(armPrefab, new Vector3(transform.position.x + -3.7f, transform.position.y, transform.position.z - 18.15f), Quaternion.identity);
-        GameObject arm = PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "Arm Origin"), new Vector3(transform.position.x + -3.7f, transform.position.y, transform.position.z - 18.15f), Quaternion.identity);
-        Transform grabPoint = arm.transform.Find("Arm").Find("Root").Find("Bicep.R").Find("Forearm.R").Find("Palm.R").Find("Grab point").transform;
+        /*GameObject arm = PhotonNetwork.Instantiate(Path.Combine("Photon Prefabs", "Arm Origin"), new Vector3(transform.position.x + -3.7f, transform.position.y, transform.position.z - 18.15f), Quaternion.identity);
+        Transform grabPoint = arm.transform.Find("Arms4").Find("Root").Find("Bicep.R").Find("Forearm.R").Find("Palm.R").Find("Grab point").transform;*/
+        
+        GameObject arm = transform.Find("Graphics Offset").Find("Arm Origin").gameObject;
+        Transform grabPoint = arm.transform.Find("Arms4").Find("Root").Find("Bicep.R").Find("Forearm.R").Find("Palm.R").Find("Grab point").transform;
+        Transform graphics = transform.Find("Graphics Offset").Find("Mouse");
+        Transform tracking = transform.Find("Camera Offset").Find("Tracking");
+        
+        arm.SetActive(true);
+        arm.transform.Find("Arms4").GetComponent<Animator>().SetTrigger("Grab");
 
         yield return new WaitForSeconds(1.8f);
 
         if (PV.IsMine)
         {
-            transform.parent = grabPoint;
+            //transform.parent = grabPoint;
+            graphics.parent = grabPoint;
+            tracking.parent = grabPoint;
         }
         
 
         yield return new WaitForSeconds(2);
 
         Die();
-        PhotonNetwork.Destroy(arm);
+        //PhotonNetwork.Destroy(arm);
     }
 
     public void ArmGrabsPlayer()
